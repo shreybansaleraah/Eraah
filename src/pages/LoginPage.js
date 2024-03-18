@@ -89,7 +89,7 @@ const LoginPage = ({ role }) => {
   const guestModeHandler = () => {
     const password = "zxc";
 
-    if (role === "Admin") {
+    if (role === "NGO") {
       const email = "yogendra@12";
       const fields = { email, password };
       setGuestLoader(true);
@@ -110,8 +110,10 @@ const LoginPage = ({ role }) => {
 
   useEffect(() => {
     if (status === "success" || currentUser !== null) {
-      if (currentRole === "Admin") {
-        navigate("/Admin/dashboard");
+      if (currentRole === "admin") {
+        navigate("/admin/dashboard");
+      } else if (currentRole === "NGO") {
+        navigate("/ngo/dashboard");
       } else if (currentRole === "Student") {
         navigate("/Student/dashboard");
       } else if (currentRole === "Teacher") {
@@ -230,7 +232,7 @@ const LoginPage = ({ role }) => {
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
                 />
-                <StyledLink href="#">Forgot password?</StyledLink>
+                {/* <StyledLink href="#">Forgot password?</StyledLink> */}
               </Grid>
               <LightPurpleButton
                 type="submit"
@@ -252,14 +254,14 @@ const LoginPage = ({ role }) => {
               >
                 Login as Guest
               </Button> */}
-              {role === "Admin" && (
+              {/* {role === "NGO" && (
                 <Grid container>
                   <Grid>Don't have an account?</Grid>
                   <Grid item sx={{ ml: 2 }}>
-                    <StyledLink to="/Adminregister">Sign up</StyledLink>
+                    <StyledLink to="/NGOregister">Sign up</StyledLink>
                   </Grid>
                 </Grid>
-              )}
+              )} */}
             </Box>
           </Box>
         </Grid>

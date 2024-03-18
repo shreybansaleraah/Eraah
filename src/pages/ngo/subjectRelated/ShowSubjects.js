@@ -69,7 +69,7 @@ const ShowSubjects = () => {
         <BlueButton
           variant="contained"
           onClick={() =>
-            navigate(`/Admin/subjects/subject/${row.sclassID}/${row.id}`)
+            navigate(`/ngo/subjects/subject/${row.sclassID}/${row.id}`)
           }
         >
           View
@@ -82,7 +82,7 @@ const ShowSubjects = () => {
     {
       icon: <PostAddIcon color="primary" />,
       name: "Add New Subject",
-      action: () => navigate("/Admin/subjects/chooseclass"),
+      action: () => navigate("/ngo/subjects/chooseclass"),
     },
     {
       icon: <DeleteIcon color="error" />,
@@ -107,7 +107,7 @@ const ShowSubjects = () => {
             >
               <GreenButton
                 variant="contained"
-                onClick={() => navigate("/Admin/subjects/chooseclass")}
+                onClick={() => navigate("/ngo/subjects/chooseclass")}
               >
                 Add Subjects
               </GreenButton>

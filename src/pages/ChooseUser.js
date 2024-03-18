@@ -28,7 +28,9 @@ const ChooseUser = ({ visitor }) => {
   const [message, setMessage] = useState("");
 
   const navigateHandler = (user) => {
-    if (user === "Admin") {
+    if (user === "admin") {
+      navigate("/adminLogin");
+    } else if (user === "NGO") {
       // if (visitor === "guest") {
       //   const email = "yogendra@12"
       //   const fields = { email, password }
@@ -36,20 +38,22 @@ const ChooseUser = ({ visitor }) => {
       //   dispatch(loginUser(fields, user))
       // }
       // else {
-      navigate("/Adminlogin");
+      navigate("/NGOlogin");
       // }
-    } else if (user === "Student") {
-      // if (visitor === "guest") {
-      //   const rollNum = "1"
-      //   const studentName = "Dipesh Awasthi"
-      //   const fields = { rollNum, studentName, password }
-      //   setLoader(true)
-      //   dispatch(loginUser(fields, user))
-      // }
-      // else {
-      navigate("/Studentlogin");
-      // }
-    } else if (user === "Teacher") {
+    }
+    //  else if (user === "Student") {
+    // if (visitor === "guest") {
+    //   const rollNum = "1"
+    //   const studentName = "Dipesh Awasthi"
+    //   const fields = { rollNum, studentName, password }
+    //   setLoader(true)
+    //   dispatch(loginUser(fields, user))
+    // }
+    // else {
+    // navigate("/Studentlogin");
+    // }
+    // }
+    else if (user === "Teacher") {
       // if (visitor === "guest") {
       //   const email = "tony@12"
       //   const fields = { email, password }
@@ -64,8 +68,8 @@ const ChooseUser = ({ visitor }) => {
 
   useEffect(() => {
     if (status === "success" || currentUser !== null) {
-      if (currentRole === "Admin") {
-        navigate("/Admin/dashboard");
+      if (currentRole === "NGO") {
+        navigate("/ngo/dashboard");
       } else if (currentRole === "Student") {
         navigate("/Student/dashboard");
       } else if (currentRole === "Teacher") {
@@ -82,8 +86,20 @@ const ChooseUser = ({ visitor }) => {
     <StyledContainer>
       <Container>
         <Grid container spacing={2} justifyContent="center">
+          {/* <Grid item xs={12} sm={6} md={4}>
+            <div onClick={() => navigateHandler("admin")}>
+              <StyledPaper elevation={3}>
+                <Box mb={2}>
+                  <AccountCircle fontSize="large" />
+                </Box>
+                <StyledTypography>Admin</StyledTypography>
+                Login as an Admin to access the dashboard to manage all NGO
+                data.
+              </StyledPaper>
+            </div>
+          </Grid> */}
           <Grid item xs={12} sm={6} md={4}>
-            <div onClick={() => navigateHandler("Admin")}>
+            <div onClick={() => navigateHandler("NGO")}>
               <StyledPaper elevation={3}>
                 <Box mb={2}>
                   <AccountCircle fontSize="large" />
@@ -93,7 +109,7 @@ const ChooseUser = ({ visitor }) => {
               </StyledPaper>
             </div>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          {/* <Grid item xs={12} sm={6} md={4}>
             <StyledPaper elevation={3}>
               <div onClick={() => navigateHandler("Student")}>
                 <Box mb={2}>
@@ -103,7 +119,7 @@ const ChooseUser = ({ visitor }) => {
                 Login as a student to explore course materials and assignments.
               </div>
             </StyledPaper>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={6} md={4}>
             <StyledPaper elevation={3}>
               <div onClick={() => navigateHandler("Teacher")}>
@@ -138,7 +154,7 @@ export default ChooseUser;
 
 const StyledContainer = styled.div`
   background: linear-gradient(to bottom, #411d70, #19118b);
-  height: 90.6vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   padding: 2rem;

@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { deleteUser } from "../../../redux/userRelated/userHandle";
 import {
   getAllSclasses,
@@ -25,21 +25,24 @@ import AddCardIcon from "@mui/icons-material/AddCard";
 import styled from "styled-components";
 import SpeedDialTemplate from "../../../components/SpeedDialTemplate";
 import Popup from "../../../components/Popup";
-
-const ShowClasses = () => {
+import Eye from "../../../assets/eye.png";
+import Pagination from "@mui/material/Pagination";
+import { setclass } from "../../../redux/selectedDataRelated/selectedDataHandler";
+const ShowClasses = ({ setSubTab }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
 
   const { sclassesList, loading, error, getresponse } = useSelector(
     (state) => state.sclass
   );
-  const { currentUser } = useSelector((state) => state.user);
+  const { selectedNgoId } = useSelector((state) => state.selectedUser);
 
-  const adminID = currentUser._id;
+  // const ngoId = ;
 
   useEffect(() => {
-    dispatch(getAllSclasses(adminID, "Sclass"));
-  }, [adminID, dispatch]);
+    dispatch(getAllSclasses(selectedNgoId, "Sclass"));
+  }, [selectedNgoId, dispatch]);
 
   if (error) {
     console.log(error);
@@ -54,7 +57,7 @@ const ShowClasses = () => {
     // setMessage("Sorry the delete function has been disabled for now.")
     // setShowPopup(true)
     dispatch(removeSclasse(deleteID)).then(() => {
-      dispatch(getAllSclasses(adminID, "Sclass"));
+      dispatch(getAllSclasses(selectedNgoId, "Sclass"));
     });
   };
 
@@ -75,12 +78,12 @@ const ShowClasses = () => {
       {
         icon: <PostAddIcon />,
         name: "Add Subjects",
-        action: () => navigate("/Admin/addsubject/" + row.id),
+        action: () => navigate("/admin/addsubject/" + row.id),
       },
       {
         icon: <PersonAddAlt1Icon />,
         name: "Add Student",
-        action: () => navigate("/Admin/class/addstudents/" + row.id),
+        action: () => navigate("/admin/class/addstudents/" + row.id),
       },
     ];
     return (
@@ -93,89 +96,26 @@ const ShowClasses = () => {
         </IconButton>
         <BlueButton
           variant="contained"
-          onClick={() => navigate("/Admin/classes/class/" + row.id)}
+          onClick={() => navigate("/admin/classes/class/" + row.id)}
         >
           View
         </BlueButton>
-        <ActionMenu actions={actions} />
+        {/* <ActionMenu actions={actions} /> */}
       </ButtonContainer>
     );
   };
 
-  const ActionMenu = ({ actions }) => {
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-    return (
-      <>
-        <Box
-          sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
-        >
-          <Tooltip title="Add Students & Subjects">
-            <IconButton
-              onClick={handleClick}
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={open ? "account-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-            >
-              <h5>Add</h5>
-              <SpeedDialIcon />
-            </IconButton>
-          </Tooltip>
-        </Box>
-        <Menu
-          anchorEl={anchorEl}
-          id="account-menu"
-          open={open}
-          onClose={handleClose}
-          onClick={handleClose}
-          PaperProps={{
-            elevation: 0,
-            sx: styles.styledPaper,
-          }}
-          transformOrigin={{ horizontal: "right", vertical: "top" }}
-          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-        >
-          {actions.map((action) => (
-            <MenuItem onClick={action.action}>
-              <ListItemIcon fontSize="small">{action.icon}</ListItemIcon>
-              {action.name}
-            </MenuItem>
-          ))}
-        </Menu>
-      </>
-    );
+  const handleView = (classId) => {
+    dispatch(setclass(classId));
+    setSubTab("selectedClass");
   };
-
-  const actions = [
-    {
-      icon: <AddCardIcon color="primary" />,
-      name: "Add New Class",
-      action: () => navigate("/Admin/addclass"),
-    },
-    {
-      icon: <DeleteIcon color="error" />,
-      name: "Delete All Classes",
-      action: () => deleteHandler(adminID, "Sclasses"),
-    },
-  ];
-
   return (
     <>
       {loading ? (
         <div>Loading...</div>
       ) : (
         <>
-          {getresponse ? (
+          {/* {getresponse ? (
             <Box
               sx={{
                 display: "flex",
@@ -185,7 +125,7 @@ const ShowClasses = () => {
             >
               <GreenButton
                 variant="contained"
-                onClick={() => navigate("/Admin/addclass")}
+                onClick={() => navigate("/admin/addclass")}
               >
                 Add Class
               </GreenButton>
@@ -199,9 +139,67 @@ const ShowClasses = () => {
                   rows={sclassRows}
                 />
               )}
-              <SpeedDialTemplate actions={actions} />
-            </>
-          )}
+              {/* <SpeedDialTemplate actions={actions} /> */}
+          {/* </> */}
+          {/* )} */}
+          <div className="collection-table mt-4 table-other col-lg-11 col-sm-11 col-md-11 col-11 m-auto">
+            <table className="table table-hover align-middle text-center">
+              <thead>
+                <tr className="align-middle">
+                  <th>View Details</th>
+                  <th className="">Class Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sclassesList
+                  .slice(6 * (page - 1), 6 * page)
+                  .map((item, index) => {
+                    console.log("item is : ", item);
+                    return (
+                      <tr key={index} style={{ borderBottom: "none" }}>
+                        <td>
+                          <img
+                            onClick={() => {
+                              handleView(item._id);
+                            }}
+                            className="hoverCusrsor"
+                            src={Eye}
+                            width={20}
+                            height={20}
+                            alt=""
+                          />
+                        </td>
+                        <td scope="col">
+                          <span id="comment">
+                            <b>{item.sclassName || ""}</b>
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+          <div className="d-inline-flex justify-content-end mb-5 p-3 w-100">
+            <div className="">
+              <Pagination
+                style={{ alignSelf: "center" }}
+                count={
+                  sclassesList.length % 6 === 0
+                    ? parseInt(sclassesList.length / 6)
+                    : parseInt(sclassesList.length / 6) + 1
+                }
+                color="primary"
+                shape="circular"
+                onChange={(event, value) => {
+                  console.log(value);
+                  setPage(value);
+                }}
+                defaultValue={1}
+                page={page}
+              />
+            </div>
+          </div>
         </>
       )}
       <Popup

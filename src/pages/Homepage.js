@@ -17,15 +17,15 @@ const Homepage = () => {
             <StyledTitle>
               Welcome to
               <br />
-              School Management
+              Errah Management
               <br />
               System
             </StyledTitle>
             <StyledText>
-              Streamline school management, class organization, and add students
-              and faculty. Seamlessly track attendance, assess performance, and
-              provide feedback. Access records, view marks, and communicate
-              effortlessly.
+              Streamline Errah management for class organization, and add
+              students and faculty. Seamlessly track attendance, assess
+              performance, and provide feedback. Access records, view marks, and
+              communicate effortlessly.
             </StyledText>
             <StyledBox>
               <StyledLink to="/choose">
@@ -40,12 +40,12 @@ const Homepage = () => {
                                     Login as Guest
                                 </Button>
                             </StyledLink> */}
-              <StyledText>
+              {/* <StyledText>
                 Don't have an account?{" "}
-                <Link to="/Adminregister" style={{ color: "#550080" }}>
+                {/* <Link to="/NGOregister" style={{ color: "#550080" }}>
                   Sign up
-                </Link>
-              </StyledText>
+                </Link> */}
+              {/* </StyledText> */}
             </StyledBox>
           </StyledPaper>
         </Grid>

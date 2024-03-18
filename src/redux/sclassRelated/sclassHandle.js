@@ -14,6 +14,7 @@ import {
 
 export const getAllSclasses = (id, address) => async (dispatch) => {
   dispatch(getRequest());
+  console.log("getting all classes", id);
 
   try {
     const result = await axios.get(
