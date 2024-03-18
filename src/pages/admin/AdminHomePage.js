@@ -16,9 +16,9 @@ import { current } from "@reduxjs/toolkit";
 
 const AdminHomePage = () => {
   const dispatch = useDispatch();
-  const { ngoList } = useSelector((state) => state.ngo);
-  const { sclassesList } = useSelector((state) => state.sclass);
-  const { teachersList } = useSelector((state) => state.teacher);
+  // const { ngoList } = useSelector((state) => state.ngo);
+  // const { sclassesList } = useSelector((state) => state.sclass);
+  // const { teachersList } = useSelector((state) => state.teacher);
   const [adminDashboardData, setAdminDashboardData] = useState({});
   const { currentUser } = useSelector((state) => state.user);
 
