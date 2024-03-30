@@ -17,12 +17,12 @@ const Homepage = () => {
             <StyledTitle>
               Welcome to
               <br />
-              Errah Management
+              Eraah Management
               <br />
               System
             </StyledTitle>
             <StyledText>
-              Streamline Errah management for class organization, and add
+              Streamline Eraah management for class organization, and add
               students and faculty. Seamlessly track attendance, assess
               performance, and provide feedback. Access records, view marks, and
               communicate effortlessly.
