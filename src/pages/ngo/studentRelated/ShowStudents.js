@@ -220,7 +220,7 @@ const ShowStudents = () => {
               </GreenButton>
             </Box>
           ) : (
-            <Paper sx={{ width: "100%", overflow: "hidden" }}>
+            <Paper sx={{ width: "100%", overflow: "scroll" }}>
               {Array.isArray(studentsList) && studentsList.length > 0 && (
                 <TableTemplate
                   buttonHaver={StudentButtonHaver}

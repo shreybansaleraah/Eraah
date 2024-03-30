@@ -11,6 +11,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { Modal } from "@mui/material";
 import AddNgo from "./addNgo";
 import { updateNgo } from "../../redux/ngoRelated/ngoHandle";
+import "./admin.css";
 
 const AllNgoPage = () => {
   const dispatch = useDispatch();

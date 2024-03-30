@@ -23,39 +23,73 @@ const SideBar = () => {
   return (
     <>
       <React.Fragment>
-        <ListItemButton component={Link} to="/">
+        <ListItemButton
+          style={
+            location.pathname === ("/" || "/admin/dashboard")
+              ? {
+                  backgroundColor: "rgba(112, 127, 221, 0.1)",
+                  color: "#707FDD",
+                }
+              : {}
+          }
+          component={Link}
+          to="/"
+        >
           <ListItemIcon>
             <HomeIcon
-              color={
-                location.pathname === ("/" || "/admin/dashboard")
-                  ? "primary"
-                  : "inherit"
-              }
+              style={{
+                color:
+                  location.pathname === ("/" || "/admin/dashboard")
+                    ? "#707FDD"
+                    : "inherit",
+              }}
             />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
-        <ListItemButton component={Link} to="/admin/allNgo">
+        <ListItemButton
+          component={Link}
+          to="/admin/allNgo"
+          style={
+            location.pathname.startsWith("/admin/allNgo")
+              ? {
+                  backgroundColor: "rgba(112, 127, 221, 0.1)",
+                  color: "#707FDD",
+                }
+              : {}
+          }
+        >
           <ListItemIcon>
             <ClassOutlinedIcon
-              color={
-                location.pathname.startsWith("/admin/allNgo")
-                  ? "primary"
-                  : "inherit"
-              }
+              style={{
+                color: location.pathname.startsWith("/admin/allNgo")
+                  ? "#707FDD"
+                  : "inherit",
+              }}
             />
           </ListItemIcon>
           <ListItemText primary="NGOs" />
         </ListItemButton>
 
-        <ListItemButton component={Link} to="/admin/addNgo">
+        <ListItemButton
+          component={Link}
+          to="/admin/addNgo"
+          style={
+            location.pathname.startsWith("/admin/addNgo")
+              ? {
+                  backgroundColor: "rgba(112, 127, 221, 0.1)",
+                  color: "#707FDD",
+                }
+              : {}
+          }
+        >
           <ListItemIcon>
             <AssignmentIcon
-              color={
-                location.pathname.startsWith("/admin/addNgo")
-                  ? "primary"
-                  : "inherit"
-              }
+              style={{
+                color: location.pathname.startsWith("/admin/addNgo")
+                  ? "#707FDD"
+                  : "inherit",
+              }}
             />
           </ListItemIcon>
           <ListItemText primary="Add NGO" />
@@ -127,12 +161,26 @@ const SideBar = () => {
           <ListItemText primary="Profile" />
         </ListItemButton> */}
 
-        <ListItemButton component={Link} to="/logout">
+        <ListItemButton
+          style={
+            location.pathname.startsWith("/logout")
+              ? {
+                  backgroundColor: "rgba(112, 127, 221, 0.1)",
+                  color: "#707FDD",
+                  fontWeight: "600",
+                }
+              : {}
+          }
+          component={Link}
+          to="/logout"
+        >
           <ListItemIcon>
             <ExitToAppIcon
-              color={
-                location.pathname.startsWith("/logout") ? "primary" : "inherit"
-              }
+              style={{
+                color: location.pathname.startsWith("/logout")
+                  ? "#707FDD"
+                  : "inherit",
+              }}
             />
           </ListItemIcon>
           <ListItemText primary="Logout" />

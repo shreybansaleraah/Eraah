@@ -201,14 +201,14 @@ const ClassDetails = ({ setSubTab }) => {
         <>
           <Box className="my-4" sx={{ typography: "body1" }}>
             <TabContext value={value}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Box sx={{ borderBottom: 1, borderColor: "#f5f5f5" }}>
                 <TabList
                   onChange={handleChange}
                   sx={{
-                    position: "fixed",
-                    width: "100%",
-                    bgcolor: "background.paper",
-                    zIndex: 1,
+                    width: "90%",
+                    margin: "auto",
+                    bgcolor: "",
+                    // zIndex: 1,
                   }}
                 >
                   <Tab label="Subjects" value="1" />

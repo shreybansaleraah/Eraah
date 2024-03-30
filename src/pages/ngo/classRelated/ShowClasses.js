@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   IconButton,
   Box,
@@ -25,6 +25,9 @@ import AddCardIcon from "@mui/icons-material/AddCard";
 import styled from "styled-components";
 import SpeedDialTemplate from "../../../components/SpeedDialTemplate";
 import Popup from "../../../components/Popup";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import UploadCsv from "../../../components/uploadCsv/uploadCsv";
 
 const ShowClasses = () => {
   const navigate = useNavigate();
@@ -47,13 +50,14 @@ const ShowClasses = () => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
+  const [showCsv, setShowCsv] = useState(false);
 
   const deleteHandler = (deleteID, address) => {
     console.log(deleteID);
     console.log(address);
     // setMessage("Sorry the delete function has been disabled for now.")
     // setShowPopup(true)
-    dispatch(removeSclasse(deleteID)).then(() => {
+    dispatch(removeSclasse(deleteID, address)).then(() => {
       dispatch(getAllSclasses(NGOID, "Sclass"));
     });
   };
@@ -127,8 +131,7 @@ const ShowClasses = () => {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-              <h5>Add</h5>
-              <SpeedDialIcon />
+              <AddBoxIcon color="primary" />
             </IconButton>
           </Tooltip>
         </Box>
@@ -158,6 +161,14 @@ const ShowClasses = () => {
 
   const actions = [
     {
+      icon: <InsertDriveFileIcon color="success" />,
+      name: "Add CSV file",
+      action: () => {
+        // fileInputRef.click();
+        setShowCsv(true);
+      },
+    },
+    {
       icon: <AddCardIcon color="primary" />,
       name: "Add New Class",
       action: () => navigate("/ngo/addclass"),
@@ -169,10 +180,14 @@ const ShowClasses = () => {
     },
   ];
 
+  const addClassByCsv = () => {};
+
   return (
     <>
       {loading ? (
         <div>Loading...</div>
+      ) : showCsv ? (
+        <UploadCsv onBack={() => setShowCsv(false)} actionFor={"class"} />
       ) : (
         <>
           {getresponse ? (
@@ -189,9 +204,18 @@ const ShowClasses = () => {
               >
                 Add Class
               </GreenButton>
+              <GreenButton
+                className="mx-2"
+                variant="contained"
+                onClick={() => setShowCsv(true)}
+              >
+                Add CSV file
+              </GreenButton>
             </Box>
           ) : (
-            <>
+            <div className="my-2">
+              <SpeedDialTemplate actions={actions} />
+              <br />
               {Array.isArray(sclassesList) && sclassesList.length > 0 && (
                 <TableTemplate
                   buttonHaver={SclassButtonHaver}
@@ -199,8 +223,7 @@ const ShowClasses = () => {
                   rows={sclassRows}
                 />
               )}
-              <SpeedDialTemplate actions={actions} />
-            </>
+            </div>
           )}
         </>
       )}

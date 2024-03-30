@@ -6,6 +6,7 @@ import Popup from "../../../components/Popup";
 import { registerUser } from "../../../redux/userRelated/userHandle";
 import { underControl } from "../../../redux/userRelated/userSlice";
 import { CircularProgress } from "@mui/material";
+import UploadCsv from "../../../components/uploadCsv/uploadCsv";
 
 const AddTeacher = () => {
   const params = useParams();
@@ -21,6 +22,7 @@ const AddTeacher = () => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
   }, [dispatch, subjectID]);
 
+  const [csvTab, setCsvTab] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -75,12 +77,12 @@ const AddTeacher = () => {
   }, [status, navigate, error, response, dispatch]);
 
   return (
-    <div
-      className="my-4"
-      style={{ paddingTop: "6.5rem", paddingBottom: "2rem" }}
-    >
-      <div className="register">
-        <form className="registerForm" onSubmit={submitHandler}>
+    <>
+      <div
+        className="col-lg-6 col-sm-12 col-md-8 col-12 m-auto"
+        // style={{ paddingTop: "6.5rem", paddingBottom: "2rem" }}
+      >
+        <form className="registerForm mt-4" onSubmit={submitHandler}>
           <span className="registerTitle">Add Teacher</span>
           <br />
           <label>Subject : {subjectDetails && subjectDetails.subName}</label>
@@ -162,13 +164,17 @@ const AddTeacher = () => {
             )}
           </button>
         </form>
+        {/* <div className="register">
+         
+        </div> */}
+        <Popup
+          message={message}
+          setShowPopup={setShowPopup}
+          showPopup={showPopup}
+        />
       </div>
-      <Popup
-        message={message}
-        setShowPopup={setShowPopup}
-        showPopup={showPopup}
-      />
-    </div>
+      {/* )} */}
+    </>
   );
 };
 

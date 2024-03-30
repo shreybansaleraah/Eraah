@@ -14,13 +14,16 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { AppBar, Drawer } from "../../components/styles";
 import Logout from "../Logout";
 import SideBar from "./SideBar";
-
+import errahIcon from "../../assets/errah.png";
+import settingIcon from "../../assets/settingIcon.svg";
 import AccountMenu from "../../components/AccountMenu";
 import AdminHomePage from "./adminHomePage";
 import AllNgoPage from "./allNgoPage";
 import AddNgo from "./addNgo";
 import NgoDetailsPage from "./ngoDetailsPage";
 import NoticeDetail from "../noticeDetail";
+import Dashboard from "./Dashboard";
+import drawerIcon from "../../assets/drawerIcon.svg";
 
 const AdminDashboard = () => {
   const [open, setOpen] = useState(false);
@@ -32,7 +35,11 @@ const AdminDashboard = () => {
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar open={open} position="absolute">
+        <AppBar
+          open={open}
+          position="absolute"
+          style={{ backgroundColor: "#FFFFFF" }}
+        >
           <Toolbar sx={{ pr: "24px" }}>
             <IconButton
               edge="start"
@@ -44,7 +51,8 @@ const AdminDashboard = () => {
                 ...(open && { display: "none" }),
               }}
             >
-              <MenuIcon />
+              <img src={drawerIcon} style={{ width: "40px", height: "35px" }} />
+              {/* <MenuIcon /> */}
             </IconButton>
             <Typography
               component="h1"
@@ -53,9 +61,20 @@ const AdminDashboard = () => {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Admin Dashboard
+              {/* Admin Dashboard */}
+              <div className="d-flex col-lg-2 align-items-center">
+                <img
+                  src={settingIcon}
+                  style={{ width: "37px", height: "37px" }}
+                  alt=""
+                />
+                <h3 style={{ fontWeight: "600", margin: 0, color: "#000000" }}>
+                  Admin
+                </h3>
+              </div>
             </Typography>
-            <AccountMenu />
+            {/* <AccountMenu /> */}
+            <img src={errahIcon} style={{ width: "3rem", height: "3rem" }} />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -65,9 +84,15 @@ const AdminDashboard = () => {
         >
           <Toolbar sx={styles.toolBarStyled}>
             <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
+              {open ? <ChevronLeftIcon /> : <MenuIcon />}
+              {/* Conditional rendering of the icon */}
             </IconButton>
           </Toolbar>
+          {/* <Toolbar sx={styles.toolBarStyled}>
+            <IconButton onClick={toggleDrawer}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </Toolbar> */}
           <Divider />
           <List component="nav">
             <SideBar />

@@ -95,24 +95,6 @@ function NgoDetailsPage() {
             Teachers
           </a>
         </div>
-        {/* <div
-          className="aggDetailsTab"
-          style={
-            tab === NGOTabs.Events ? { borderBottom: "3px solid #2B78FF" } : {}
-          }
-        >
-          <a
-            className="tabText"
-            style={
-              tab === NGOTabs.Events
-                ? { color: "#2B78FF", fontWeight: 700 }
-                : {}
-            }
-            onClick={() => handleChangeTab(NGOTabs.Events)}
-          >
-            Events
-          </a>
-        </div> */}
       </div>
 
       {tab === NGOTabs.Home && <Home />}

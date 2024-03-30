@@ -107,22 +107,22 @@ function Home() {
             <div className="my-2">
               <p className="text-secondary m-0 p-0">Address Proof</p>
               <a
-                href="https://w3school.com"
+                href=""
                 target="_blank"
                 style={{ color: "lightblue", textDecoration: "underLine" }}
               >
-                {ngoDetails?.addUrl || "https://google.com"}
+                {ngoDetails?.addUrl || ""}
               </a>
             </div>
 
             <div className="my-2">
               <p className="text-secondary m-0 p-0">Bank Statement</p>
               <a
-                href="https://w3school.com"
+                href=""
                 target="_blank"
                 style={{ color: "lightblue", textDecoration: "underLine" }}
               >
-                {ngoDetails?.bankUrl || "https://google.com"}
+                {ngoDetails?.bankUrl || ""}
               </a>
             </div>
           </div>

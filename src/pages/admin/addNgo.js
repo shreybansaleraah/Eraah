@@ -338,12 +338,14 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
       >
         {edit ? "Update" : "Add"}
       </button>
-      <div
-        style={{ position: "absolute", top: 5, right: 5 }}
-        onClick={modalClose}
-      >
-        <CancelIcon />
-      </div>
+      {edit && (
+        <div
+          style={{ position: "absolute", top: 5, right: 5, cursor: "pointer" }}
+          onClick={modalClose}
+        >
+          <CancelIcon />
+        </div>
+      )}
       <Popup
         message={errorMessage}
         setShowPopup={setShowPopup}

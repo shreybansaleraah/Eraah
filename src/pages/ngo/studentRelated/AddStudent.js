@@ -6,6 +6,7 @@ import Popup from "../../../components/Popup";
 import { underControl } from "../../../redux/userRelated/userSlice";
 import { getAllSclasses } from "../../../redux/sclassRelated/sclassHandle";
 import { CircularProgress } from "@mui/material";
+import UploadCsv from "../../../components/uploadCsv/uploadCsv";
 
 const AddStudent = ({ situation }) => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const AddStudent = ({ situation }) => {
   const { status, currentUser, response, error } = userState;
   const { sclassesList } = useSelector((state) => state.sclass);
 
+  const [csvTab, setCsvTab] = useState(false);
   const [name, setName] = useState("");
   const [rollNum, setRollNum] = useState("");
   const [motherName, setMotherName] = useState("");
@@ -99,110 +101,141 @@ const AddStudent = ({ situation }) => {
 
   return (
     <>
-      <div
-        className="register my-4"
-        style={{ paddingTop: "12rem", paddingBottom: "2rem" }}
-      >
-        <form className="registerForm" onSubmit={submitHandler}>
-          <span className="registerTitle">Add Student</span>
-          <label>Name</label>
-          <input
-            className="registerInput"
-            type="text"
-            placeholder="Enter student's name..."
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            autoComplete="name"
-            required
-          />
-
-          {situation === "Student" && (
-            <>
-              <label>Class</label>
-              <select
-                className="registerInput"
-                value={className}
-                onChange={changeHandler}
-                required
-              >
-                <option value="Select Class">Select Class</option>
-                {sclassesList.map((classItem, index) => (
-                  <option key={index} value={classItem.sclassName}>
-                    {classItem.sclassName}
-                  </option>
-                ))}
-              </select>
-            </>
-          )}
-
-          <label>Roll Number</label>
-          <input
-            className="registerInput"
-            type="text"
-            placeholder="Enter student's Roll Number..."
-            value={rollNum}
-            onChange={(event) => setRollNum(event.target.value)}
-            required
-          />
-
-          <label>Mother's Name</label>
-          <input
-            className="registerInput"
-            type="text"
-            placeholder="Enter student's mother's name..."
-            value={motherName}
-            onChange={(event) => setMotherName(event.target.value)}
-            autoComplete="new-password"
-            required
-          />
-          <label>Mother's Occupation</label>
-          <input
-            className="registerInput"
-            type="text"
-            placeholder="Enter student's mother's occupation"
-            value={motherOcc}
-            onChange={(event) => setMotherOcc(event.target.value)}
-            autoComplete="new-password"
-            required
-          />
-          <label>Father's Name</label>
-          <input
-            className="registerInput"
-            type="text"
-            placeholder="Enter student's father's name..."
-            value={fatherName}
-            onChange={(event) => setFatherName(event.target.value)}
-            autoComplete="new-password"
-            required
-          />
-          <label>Father's Occupation</label>
-          <input
-            className="registerInput"
-            type="text"
-            placeholder="Enter student's father's occupation"
-            value={fatherOcc}
-            onChange={(event) => setFatherOcc(event.target.value)}
-            autoComplete="new-password"
-            required
-          />
-          <label>Student Photo</label>
-          <input
-            className="registerInput"
-            type="file"
-            placeholder="Upload Photo"
-            onChange={(event) => setPhoto(event.target.files[0])}
-            required
-          />
-
-          <button
-            className="registerButton my-2"
-            type="submit"
-            disabled={loader}
+      <div className="tabsContainer col-lg-4 col-11 col-md-8 col-sm-11 m-auto mb-4">
+        <div
+          className="aggDetailsTab"
+          style={!csvTab ? { borderBottom: "3px solid #2B78FF" } : {}}
+        >
+          <a
+            className="tabText"
+            style={!csvTab ? { color: "#2B78FF", fontWeight: 700 } : {}}
+            onClick={() => setCsvTab(false)}
           >
-            {loader ? <CircularProgress size={24} color="inherit" /> : "Add"}
-          </button>
-        </form>
+            Add Student
+          </a>
+        </div>
+
+        <div
+          className="aggDetailsTab"
+          style={csvTab ? { borderBottom: "3px solid #2B78FF" } : {}}
+        >
+          <a
+            className="tabText"
+            style={csvTab ? { color: "#2B78FF", fontWeight: 700 } : {}}
+            onClick={() => setCsvTab(true)}
+          >
+            Add Via CSV
+          </a>
+        </div>
       </div>
+      {csvTab ? (
+        <UploadCsv actionFor={"student"} />
+      ) : (
+        <div
+          className="col-lg-6 col-sm-12 col-md-8 col-12 m-auto"
+          // style={{ paddingTop: "12rem", paddingBottom: "2rem" }}
+        >
+          <form className="registerForm mt-3" onSubmit={submitHandler}>
+            <span className="registerTitle">Add Student</span>
+            <label>Name</label>
+            <input
+              className="registerInput"
+              type="text"
+              placeholder="Enter student's name..."
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              autoComplete="name"
+              required
+            />
+
+            {situation === "Student" && (
+              <>
+                <label>Class</label>
+                <select
+                  className="registerInput"
+                  value={className}
+                  onChange={changeHandler}
+                  required
+                >
+                  <option value="Select Class">Select Class</option>
+                  {sclassesList.map((classItem, index) => (
+                    <option key={index} value={classItem.sclassName}>
+                      {classItem.sclassName}
+                    </option>
+                  ))}
+                </select>
+              </>
+            )}
+
+            <label>Roll Number</label>
+            <input
+              className="registerInput"
+              type="text"
+              placeholder="Enter student's Roll Number..."
+              value={rollNum}
+              onChange={(event) => setRollNum(event.target.value)}
+              required
+            />
+
+            <label>Mother's Name</label>
+            <input
+              className="registerInput"
+              type="text"
+              placeholder="Enter student's mother's name..."
+              value={motherName}
+              onChange={(event) => setMotherName(event.target.value)}
+              autoComplete="new-password"
+              required
+            />
+            <label>Mother's Occupation</label>
+            <input
+              className="registerInput"
+              type="text"
+              placeholder="Enter student's mother's occupation"
+              value={motherOcc}
+              onChange={(event) => setMotherOcc(event.target.value)}
+              autoComplete="new-password"
+              required
+            />
+            <label>Father's Name</label>
+            <input
+              className="registerInput"
+              type="text"
+              placeholder="Enter student's father's name..."
+              value={fatherName}
+              onChange={(event) => setFatherName(event.target.value)}
+              autoComplete="new-password"
+              required
+            />
+            <label>Father's Occupation</label>
+            <input
+              className="registerInput"
+              type="text"
+              placeholder="Enter student's father's occupation"
+              value={fatherOcc}
+              onChange={(event) => setFatherOcc(event.target.value)}
+              autoComplete="new-password"
+              required
+            />
+            <label>Student Photo</label>
+            <input
+              className="registerInput"
+              type="file"
+              placeholder="Upload Photo"
+              onChange={(event) => setPhoto(event.target.files[0])}
+              required
+            />
+
+            <button
+              className="registerButton my-2"
+              type="submit"
+              disabled={loader}
+            >
+              {loader ? <CircularProgress size={24} color="inherit" /> : "Add"}
+            </button>
+          </form>
+        </div>
+      )}
       <Popup
         message={message}
         setShowPopup={setShowPopup}

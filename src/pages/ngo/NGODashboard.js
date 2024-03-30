@@ -43,6 +43,8 @@ import ShowClasses from "./classRelated/ShowClasses";
 import AccountMenu from "../../components/AccountMenu";
 import NoticeDetail from "../noticeDetail";
 
+import drawerIcon from "../../assets/drawerIcon.svg";
+
 const NGODashboard = () => {
   const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
@@ -53,7 +55,11 @@ const NGODashboard = () => {
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar open={open} position="absolute">
+        <AppBar
+          open={open}
+          position="absolute"
+          style={{ backgroundColor: "#FFFFFF" }}
+        >
           <Toolbar sx={{ pr: "24px" }}>
             <IconButton
               edge="start"
@@ -65,7 +71,8 @@ const NGODashboard = () => {
                 ...(open && { display: "none" }),
               }}
             >
-              <MenuIcon />
+              {/* <MenuIcon /> */}
+              <img src={drawerIcon} style={{ width: "40px", height: "35px" }} />
             </IconButton>
             <Typography
               component="h1"
@@ -73,6 +80,7 @@ const NGODashboard = () => {
               color="inherit"
               noWrap
               sx={{ flexGrow: 1 }}
+              style={{ color: "#000000", fontWeight: "600" }}
             >
               NGO Dashboard
             </Typography>
@@ -90,12 +98,12 @@ const NGODashboard = () => {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">
+          <List component="nav" style={{ overflowX: "hidden" }}>
             <SideBar />
           </List>
         </Drawer>
-        <Box component="main" sx={styles.boxStyled}>
-          <Toolbar />
+        <Box component="main" sx={styles.boxStyled} className="px-2">
+          <Toolbar className="mt-4" />
           <Routes>
             <Route path="/" element={<NGOHomePage />} />
             <Route path="*" element={<Navigate to="/" />} />
@@ -200,7 +208,7 @@ const styles = {
         ? theme.palette.grey[100]
         : theme.palette.grey[900],
     flexGrow: 1,
-    height: "100vh",
+    height: "99.9vh",
     overflow: "auto",
   },
   toolBarStyled: {
@@ -211,9 +219,11 @@ const styles = {
   },
   drawerStyled: {
     display: "flex",
+    // overflowX: "hidden",
   },
   hideDrawer: {
     display: "flex",
+    // overflow: "hidden",
     "@media (max-width: 600px)": {
       display: "none",
     },

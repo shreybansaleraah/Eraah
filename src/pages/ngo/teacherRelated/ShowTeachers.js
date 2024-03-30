@@ -23,9 +23,13 @@ import { BlueButton, GreenButton } from "../../../components/buttonStyles";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import SpeedDialTemplate from "../../../components/SpeedDialTemplate";
 import Popup from "../../../components/Popup";
+import UploadCsv from "../../../components/uploadCsv/uploadCsv";
+
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
 const ShowTeachers = () => {
   const [page, setPage] = useState(0);
+  const [csvTab, setCsvTab] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const navigate = useNavigate();
@@ -41,25 +45,6 @@ const ShowTeachers = () => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
-
-  if (loading) {
-    return <div>Loading...</div>;
-  } else if (response) {
-    return (
-      <Box
-        sx={{ display: "flex", justifyContent: "flex-end", marginTop: "16px" }}
-      >
-        <GreenButton
-          variant="contained"
-          onClick={() => navigate("/ngo/teachers/chooseclass")}
-        >
-          Add Teacher
-        </GreenButton>
-      </Box>
-    );
-  } else if (error) {
-    console.log(error);
-  }
 
   const deleteHandler = (deleteID, address) => {
     console.log(deleteID);
@@ -90,6 +75,11 @@ const ShowTeachers = () => {
 
   const actions = [
     {
+      icon: <InsertDriveFileIcon color="success" />,
+      name: "Add via csv",
+      action: () => setCsvTab(true),
+    },
+    {
       icon: <PersonAddAlt1Icon color="primary" />,
       name: "Add New Teacher",
       action: () => navigate("/ngo/teachers/chooseclass"),
@@ -102,105 +92,142 @@ const ShowTeachers = () => {
   ];
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <StyledTableRow>
-              {columns.map((column) => (
-                <StyledTableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </StyledTableCell>
-              ))}
-              <StyledTableCell align="center">Actions</StyledTableCell>
-            </StyledTableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <StyledTableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.id}
-                  >
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      if (column.id === "teachSubject") {
-                        return (
-                          <StyledTableCell key={column.id} align={column.align}>
-                            {value ? (
-                              value
-                            ) : (
-                              <Button
-                                variant="contained"
-                                onClick={() => {
-                                  navigate(
-                                    `/ngo/teachers/choosesubject/${row.teachSclassID}/${row.id}`
-                                  );
-                                }}
-                              >
-                                Add Subject
-                              </Button>
-                            )}
-                          </StyledTableCell>
-                        );
-                      }
-                      return (
-                        <StyledTableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </StyledTableCell>
-                      );
-                    })}
-                    <StyledTableCell align="center">
-                      <IconButton
-                        onClick={() => deleteHandler(row.id, "Teacher")}
-                      >
-                        <PersonRemoveIcon color="error" />
-                      </IconButton>
-                      <BlueButton
-                        variant="contained"
-                        onClick={() =>
-                          navigate("/ngo/teachers/teacher/" + row.id)
-                        }
-                      >
-                        View
-                      </BlueButton>
+    <>
+      {loading ? (
+        <div>Loading...</div>
+      ) : csvTab ? (
+        <UploadCsv
+          onBack={() => {
+            setCsvTab(false);
+          }}
+          actionFor={"teacher"}
+        />
+      ) : response ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginTop: "16px",
+          }}
+        >
+          <GreenButton
+            variant="contained"
+            onClick={() => navigate("/ngo/teachers/chooseclass")}
+          >
+            Add Teacher
+          </GreenButton>
+          <GreenButton variant="contained mx-2" onClick={() => setCsvTab(true)}>
+            Add Teacher via csv
+          </GreenButton>
+        </Box>
+      ) : (
+        <Paper sx={{ width: "100%", overflow: "hidden" }}>
+          <TableContainer>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <StyledTableRow>
+                  {columns.map((column) => (
+                    <StyledTableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
                     </StyledTableCell>
-                  </StyledTableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={(event, newPage) => setPage(newPage)}
-        onRowsPerPageChange={(event) => {
-          setRowsPerPage(parseInt(event.target.value, 5));
-          setPage(0);
-        }}
-      />
+                  ))}
+                  <StyledTableCell align="center">Actions</StyledTableCell>
+                </StyledTableRow>
+              </TableHead>
+              <TableBody>
+                {rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <StyledTableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.id}
+                      >
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          if (column.id === "teachSubject") {
+                            return (
+                              <StyledTableCell
+                                key={column.id}
+                                align={column.align}
+                              >
+                                {value ? (
+                                  value
+                                ) : (
+                                  <Button
+                                    variant="contained"
+                                    onClick={() => {
+                                      navigate(
+                                        `/ngo/teachers/choosesubject/${row.teachSclassID}/${row.id}`
+                                      );
+                                    }}
+                                  >
+                                    Add Subject
+                                  </Button>
+                                )}
+                              </StyledTableCell>
+                            );
+                          }
+                          return (
+                            <StyledTableCell
+                              key={column.id}
+                              align={column.align}
+                            >
+                              {column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value}
+                            </StyledTableCell>
+                          );
+                        })}
+                        <StyledTableCell align="center">
+                          <IconButton
+                            onClick={() => deleteHandler(row.id, "Teacher")}
+                          >
+                            <PersonRemoveIcon color="error" />
+                          </IconButton>
+                          <BlueButton
+                            variant="contained"
+                            onClick={() =>
+                              navigate("/ngo/teachers/teacher/" + row.id)
+                            }
+                          >
+                            View
+                          </BlueButton>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={(event, newPage) => setPage(newPage)}
+            onRowsPerPageChange={(event) => {
+              setRowsPerPage(parseInt(event.target.value, 5));
+              setPage(0);
+            }}
+          />
 
-      <SpeedDialTemplate actions={actions} />
-      <Popup
-        message={message}
-        setShowPopup={setShowPopup}
-        showPopup={showPopup}
-      />
-    </Paper>
+          <SpeedDialTemplate actions={actions} />
+          <Popup
+            message={message}
+            setShowPopup={setShowPopup}
+            showPopup={showPopup}
+          />
+        </Paper>
+      )}
+    </>
   );
 };
 

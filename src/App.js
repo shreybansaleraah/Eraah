@@ -15,6 +15,7 @@ import NGORegisterPage from "./pages/ngo/NGORegisterPage";
 import ChooseUser from "./pages/ChooseUser";
 import AdminDashboard from "./pages/admin/adminDasboard";
 import NoticeDetail from "./pages/noticeDetail";
+import Dashboard from "./pages/admin/Dashboard";
 
 const App = () => {
   const { currentRole } = useSelector((state) => state.user);
@@ -29,6 +30,7 @@ const App = () => {
             path="/chooseasguest"
             element={<ChooseUser visitor="guest" />}
           />
+          <Route path="/adminDashboard" element={<Dashboard />} />
 
           <Route path="/adminlogin" element={<LoginPage role="Admin" />} />
           <Route path="/NGOlogin" element={<LoginPage role="NGO" />} />

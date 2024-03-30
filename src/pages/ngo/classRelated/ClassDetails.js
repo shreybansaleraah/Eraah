@@ -140,7 +140,7 @@ const ClassDetails = () => {
           </Box>
         ) : (
           <>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ zIndex: 0 }} variant="h5" gutterBottom>
               Subjects List:
             </Typography>
 
@@ -172,17 +172,22 @@ const ClassDetails = () => {
   const StudentsButtonHaver = ({ row }) => {
     return (
       <>
-        <IconButton onClick={() => deleteHandler(row.id, "Student")}>
+        <IconButton
+          onClick={() => deleteHandler(row.id, "Student")}
+          className="mx-2"
+        >
           <PersonRemoveIcon color="error" />
         </IconButton>
         <BlueButton
           variant="contained"
           onClick={() => navigate("/ngo/students/student/" + row.id)}
+          className="mx-2"
         >
           View
         </BlueButton>
         <PurpleButton
           variant="contained"
+          className="mx-2"
           onClick={() => navigate("/ngo/students/student/attendance/" + row.id)}
         >
           Attendance
@@ -301,16 +306,18 @@ const ClassDetails = () => {
         <div>Loading...</div>
       ) : (
         <>
-          <Box sx={{ width: "100%", typography: "body1" }}>
+          <Box sx={{ width: "100%", typography: "body1", zIndex: 0 }}>
             <TabContext value={value}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Box sx={{ borderBottom: 1, borderColor: "#f5f5f5", zIndex: 0 }}>
                 <TabList
                   onChange={handleChange}
                   sx={{
-                    position: "fixed",
-                    width: "100%",
-                    bgcolor: "background.paper",
-                    zIndex: 1,
+                    width: "90%",
+                    margin: "auto",
+                    bgcolor: "",
+
+                    // zIndex: 1,
+                    zIndex: 0,
                   }}
                 >
                   <Tab label="Details" value="1" />
@@ -321,12 +328,12 @@ const ClassDetails = () => {
               </Box>
               <Container
                 // className="bg-white"
-                sx={{ marginTop: "3rem", marginBottom: "4rem" }}
+                sx={{ marginTop: "3rem", marginBottom: "2rem", zIndex: 0 }}
               >
                 <TabPanel value="1">
                   <ClassDetailsSection />
                 </TabPanel>
-                <TabPanel value="2">
+                <TabPanel value="2" sx={{ zIndex: 0 }}>
                   <ClassSubjectsSection />
                 </TabPanel>
                 <TabPanel value="3">

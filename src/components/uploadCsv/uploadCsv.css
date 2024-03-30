@@ -1,0 +1,105 @@
+.runBulkCommModalBox {
+    width: 100%;
+    /* margin: auto; */
+    overflow-x: auto;
+            scrollbar-width: thin;
+            scroll-behavior: smooth;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0px 4px 35px 0px rgba(0, 0, 0, 0.25);
+    padding: 25px 30px;
+}
+.runBulkCommModalBox::-webkit-scrollbar {
+    z-index: 9999999999999999999999999999999999999999999999999999999999999999999999;
+    width: 8px;
+    /* Set the desired z-index value */
+}
+.runBulkCommModalBox::-webkit-scrollbar-button {
+    display: none;
+}
+.runBulkCommModalBox::-webkit-scrollbar-thumb {
+    background-color: #888;
+    /* Color of the thumb */
+    border-radius: 6px;
+    /* Roundness of the thumb */
+}
+
+.runBulkCommModalBox::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Color of the track */
+}
+
+.runBulkCommModalBox::-webkit-scrollbar-thumb {
+    background-color: #888;
+    /* Color of the thumb */
+    border-radius: 6px;
+    /* Roundness of the thumb */
+}
+.bulkCommHeader {
+    color: #000;
+    /* font-family: $fontFamily; */
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.aggregatorHeader {
+    color: #2B2F32;
+    /* font-family: $fontFamily; */
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.communiCateViaDropdownContainer {
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.leadFountContainer {
+    margin-top: 1rem;
+    color: #FF772B;
+    /* font-family: $fontFamily; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    justify-content: start;
+    padding: 15px 10px;
+    border-radius: 12px;
+    background: var(--delete-bg-color, #FFF2EA);
+}
+.sendBtn {
+    margin-top: 0.8rem;
+    /* width: 10%; */
+    border: none;
+    border-radius: 12px;
+    background: #2B78FF;
+    padding: 13px;
+    color: #FFF;
+    /* Body bold */
+    /* font-family: $fontFamily; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 18px;
+}
+.btnWidth {
+    margin-top: 0.8rem;
+    border: none;
+    border-radius: 12px;
+    background: #2B78FF;
+    padding: 10px;
+    color: #FFF;
+    /* Body bold */
+    /* font-family: $fontFamily; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 18px;
+    width: 55%;
+}
