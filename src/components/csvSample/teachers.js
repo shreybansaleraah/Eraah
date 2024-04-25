@@ -12,6 +12,7 @@ function Teachers() {
           <th scope="col">Aadhar</th>
           <th scope="col">Pan</th>
           <th scope="col">Subject</th>
+          <th scope="col">Class Teacher</th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,7 @@ function Teachers() {
           <td>123412341234</td>
           <td>ASDFG1234A</td>
           <td>ENGLISH</td>
+          <td>yes</td>
         </tr>
         <tr>
           <td>Meenu</td>
@@ -32,6 +34,7 @@ function Teachers() {
           <td>123412341234</td>
           <td>ASDFG1234A</td>
           <td>HINDI</td>
+          <td>no</td>
         </tr>
         <tr>
           <td>Sunita</td>
@@ -41,6 +44,7 @@ function Teachers() {
           <td>123412341234</td>
           <td>ASDFG1234A</td>
           <td>MATHS</td>
+          <td>yes</td>
         </tr>
       </tbody>
     </table>
