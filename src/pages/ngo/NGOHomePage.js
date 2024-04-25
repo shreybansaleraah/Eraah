@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { getAllSclasses } from "../../redux/sclassRelated/sclassHandle";
 import { getAllStudents } from "../../redux/studentRelated/studentHandle";
 import { getAllTeachers } from "../../redux/teacherRelated/teacherHandle";
+import SeeFacility from "./facilityRelated/seeFacility";
 
 const NGOHomePage = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,12 @@ const NGOHomePage = () => {
           <Grid item xs={12} md={12} lg={12}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
               <SeeNotice />
+            </Paper>
+            <Paper
+              sx={{ p: 2, display: "flex", flexDirection: "column" }}
+              className="mt-4"
+            >
+              <SeeFacility />
             </Paper>
           </Grid>
         </Grid>

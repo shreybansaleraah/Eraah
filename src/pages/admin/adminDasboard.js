@@ -94,7 +94,7 @@ const AdminDashboard = () => {
             </IconButton>
           </Toolbar> */}
           <Divider />
-          <List component="nav">
+          <List component="nav" style={{ overflowX: "hidden" }}>
             <SideBar />
           </List>
         </Drawer>

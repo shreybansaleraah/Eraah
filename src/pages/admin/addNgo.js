@@ -156,6 +156,9 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           class="mb-3 col-12 col-lg-6 col-sm-6"
           style={{ paddingRight: "2px" }}
         >
+          <label for="exampleFormControlInput1" class="form-label">
+            Name
+          </label>
           <input
             type="text"
             className="form-control"
@@ -171,6 +174,9 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           class="mb-3 col-12 col-lg-6 col-sm-6"
           style={{ paddingLeft: "2px" }}
         >
+          <label for="exampleFormControlInput1" class="form-label">
+            Founder Name
+          </label>
           <input
             type="text"
             class="form-control"
@@ -188,6 +194,9 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           class="mb-3 col-12 col-lg-6 col-sm-6"
           style={{ paddingRight: "2px" }}
         >
+          <label for="exampleFormControlInput1" class="form-label">
+            Pan
+          </label>
           <input
             type="text"
             className="form-control"
@@ -203,6 +212,9 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           class="mb-3 col-12 col-lg-6 col-sm-6"
           style={{ paddingLeft: "2px" }}
         >
+          <label for="exampleFormControlInput1" class="form-label">
+            Founder pan
+          </label>
           <input
             type="text"
             class="form-control"
@@ -215,11 +227,15 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           />
         </div>
       </div>
+
       <div className="d-flex justify-content-between flex-wrap">
         <div
           class="mb-3 col-12 col-lg-6 col-sm-6"
           style={{ paddingRight: "2px" }}
         >
+          <label for="exampleFormControlInput1" class="form-label">
+            Email address
+          </label>
           <input
             type="email"
             class="form-control"
@@ -236,6 +252,9 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           class="mb-3 col-12 col-lg-6 col-sm-6"
           style={{ paddingLeft: "2px" }}
         >
+          <label for="exampleFormControlInput1" class="form-label">
+            Password
+          </label>
           <input
             type="password"
             class="form-control"
@@ -248,7 +267,11 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           />
         </div>
       </div>
+
       <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">
+          Address
+        </label>
         <textarea
           class="form-control"
           id="exampleFormControlTextarea1"
@@ -260,6 +283,7 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           required
         ></textarea>
       </div>
+
       <div className="d-flex justify-content-between flex-wrap">
         <div
           class="mb-3 col-12 col-lg-6 col-sm-6"
@@ -304,6 +328,9 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           class="mb-3 col-12 col-lg-6 col-sm-6"
           style={{ paddingRight: "2px" }}
         >
+          <label for="exampleFormControlInput1" class="form-label">
+            Trustee
+          </label>
           <input
             type="text"
             className="form-control"
@@ -319,6 +346,9 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           class="mb-3 col-12 col-lg-6 col-sm-6"
           style={{ paddingLeft: "2px" }}
         >
+          <label for="exampleFormControlInput1" class="form-label">
+            School
+          </label>
           <input
             type="text"
             class="form-control"

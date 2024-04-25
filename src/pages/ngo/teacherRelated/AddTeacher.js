@@ -29,6 +29,7 @@ const AddTeacher = () => {
   const [aadhar, setAadhar] = useState("");
   const [pan, setPan] = useState("");
   const [photo, setPhoto] = useState(null);
+  const [classTeacher, setClassTeacher] = useState(false);
 
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
@@ -53,6 +54,7 @@ const AddTeacher = () => {
     school,
     teachSubject,
     teachSclass,
+    classTeacher,
   };
 
   const submitHandler = (event) => {
@@ -92,7 +94,9 @@ const AddTeacher = () => {
               subjectDetails.sclassName &&
               subjectDetails.sclassName.sclassName}
           </label>
-          <label>Name</label>
+          <label>
+            Name<span className="requireField">*</span>
+          </label>
           <input
             className="registerInput"
             type="text"
@@ -103,7 +107,9 @@ const AddTeacher = () => {
             required
           />
 
-          <label>Email</label>
+          <label>
+            Email<span className="requireField">*</span>
+          </label>
           <input
             className="registerInput"
             type="email"
@@ -114,7 +120,9 @@ const AddTeacher = () => {
             required
           />
 
-          <label>Password</label>
+          <label>
+            Password<span className="requireField">*</span>
+          </label>
           <input
             className="registerInput"
             type="password"
@@ -124,7 +132,9 @@ const AddTeacher = () => {
             autoComplete="new-password"
             required
           />
-          <label>Aadhar</label>
+          <label>
+            Aadhar<span className="requireField">*</span>
+          </label>
           <input
             className="registerInput"
             type="number"
@@ -134,7 +144,9 @@ const AddTeacher = () => {
             autoComplete="new-password"
             maxLength={12}
           />
-          <label>Pan</label>
+          <label>
+            Pan<span className="requireField">*</span>
+          </label>
           <input
             className="registerInput"
             type="text"
@@ -143,7 +155,9 @@ const AddTeacher = () => {
             onChange={(event) => setPan(event.target.value.toUpperCase())}
             pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
           />
-          <label>Photo</label>
+          <label>
+            Photo<span className="requireField">*</span>
+          </label>
           <input
             className="registerInput"
             type="file"
@@ -151,7 +165,22 @@ const AddTeacher = () => {
             onChange={(event) => setPhoto(event.target.files[0])}
             required
           />
-
+          <div className="my-3">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <input
+                  class="form-check-input me-1"
+                  type="checkbox"
+                  value={classTeacher}
+                  onChange={setClassTeacher}
+                  id="firstCheckbox"
+                />
+                <label class="form-check-label mx-2" for="firstCheckbox">
+                  Class Teacher
+                </label>
+              </li>
+            </ul>
+          </div>
           <button
             className="registerButton my-2"
             type="submit"

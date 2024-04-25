@@ -527,6 +527,22 @@ const ViewStudent = () => {
                   <span className="text-secondary">Mother's Name</span>
                   <p>{userDetails?.motherName || ""}</p>
                 </div>
+                <div className="">
+                  <span className="text-secondary">Action</span>
+                  <p>
+                    <span className="btn" onClick={deleteHandler}>
+                      <DeleteIcon color="error" />
+                    </span>
+
+                    {/* <Button
+                      variant="contained"
+                      onClick={deleteHandler}
+                      sx={styles.styledButton}
+                    >
+                      Delete
+                    </Button> */}
+                  </p>
+                </div>
               </div>
               <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
                 <div className="">
@@ -552,20 +568,8 @@ const ViewStudent = () => {
                   <p>{userDetails?.school?.schoolName || ""}</p>
                 </div>
                 <div className="">
-                  <span className="text-secondary">Action</span>
-                  <p>
-                    <span className="btn" onClick={deleteHandler}>
-                      <DeleteIcon color="error" />
-                    </span>
-
-                    {/* <Button
-                      variant="contained"
-                      onClick={deleteHandler}
-                      sx={styles.styledButton}
-                    >
-                      Delete
-                    </Button> */}
-                  </p>
+                  <span className="text-secondary">Class Teacher</span>
+                  <p>{userDetails?.classTeacher?.name || ""}</p>
                 </div>
               </div>
             </div>

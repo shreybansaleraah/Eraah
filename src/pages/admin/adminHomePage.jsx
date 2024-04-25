@@ -26,6 +26,7 @@ import Earning from "../../components/earning.js";
 import Visitors from "../../components/visitors.js";
 import DonationGraph from "../../components/donationGraph.js";
 import bottomEclipse from "../../assets/eclipseBottom.svg";
+import SeeFacility from "../ngo/facilityRelated/seeFacility.jsx";
 
 const AdminHomePage = () => {
   const dispatch = useDispatch();
@@ -296,8 +297,17 @@ const AdminHomePage = () => {
 
         {/* ========== notices ========== */}
         <Grid item xs={12} md={12} lg={12}>
-          <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+          <Paper
+            sx={{ p: 2, display: "flex", flexDirection: "column" }}
+            className="my-3"
+          >
             <SeeNotice />
+          </Paper>
+          <Paper
+            sx={{ p: 2, display: "flex", flexDirection: "column" }}
+            className="my-3"
+          >
+            <SeeFacility />
           </Paper>
         </Grid>
       </Container>

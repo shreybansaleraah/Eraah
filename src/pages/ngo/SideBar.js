@@ -95,7 +95,19 @@ const SideBar = () => {
           </ListItemIcon>
           <ListItemText primary="Notices" />
         </ListItemButton>
-        <ListItemButton component={Link} to="/ngo/complains">
+        <ListItemButton component={Link} to="/ngo/addfacility">
+          <ListItemIcon>
+            <ReportIcon
+              color={
+                location.pathname.startsWith("/ngo/addfacility")
+                  ? "primary"
+                  : "inherit"
+              }
+            />
+          </ListItemIcon>
+          <ListItemText primary="Facility" />
+        </ListItemButton>
+        {/* <ListItemButton component={Link} to="/ngo/complains">
           <ListItemIcon>
             <ReportIcon
               color={
@@ -106,7 +118,7 @@ const SideBar = () => {
             />
           </ListItemIcon>
           <ListItemText primary="Complains" />
-        </ListItemButton>
+        </ListItemButton> */}
       </React.Fragment>
       <Divider sx={{ my: 1 }} />
       <React.Fragment>

@@ -43,7 +43,9 @@ import ShowClasses from "./classRelated/ShowClasses";
 import AccountMenu from "../../components/AccountMenu";
 import NoticeDetail from "../noticeDetail";
 
+import errahIcon from "../../assets/errah.png";
 import drawerIcon from "../../assets/drawerIcon.svg";
+import AddFacility from "./facilityRelated/AddFacility";
 
 const NGODashboard = () => {
   const [open, setOpen] = useState(false);
@@ -53,7 +55,7 @@ const NGODashboard = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", overflow: "hidden" }}>
         <CssBaseline />
         <AppBar
           open={open}
@@ -84,7 +86,8 @@ const NGODashboard = () => {
             >
               NGO Dashboard
             </Typography>
-            <AccountMenu />
+            {/* <AccountMenu /> */}
+            <img src={errahIcon} style={{ width: "3rem", height: "3rem" }} />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -98,7 +101,10 @@ const NGODashboard = () => {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav" style={{ overflowX: "hidden" }}>
+          <List
+            component="nav"
+            style={{ overflowX: "hidden", overflowY: "scroll" }}
+          >
             <SideBar />
           </List>
         </Drawer>
@@ -188,6 +194,7 @@ const NGODashboard = () => {
               path="/ngo/teachers/addteacher/:id"
               element={<AddTeacher />}
             />
+            <Route path="/ngo/addfacility" element={<AddFacility />} />
 
             <Route path="/noticeDetail" element={<NoticeDetail />} />
 

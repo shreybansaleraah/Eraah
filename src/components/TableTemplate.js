@@ -8,7 +8,12 @@ import {
   TablePagination,
 } from "@mui/material";
 
-const TableTemplate = ({ buttonHaver: ButtonHaver, columns, rows }) => {
+const TableTemplate = ({
+  buttonHaver: ButtonHaver,
+  columns,
+  rows,
+  buttonHaverLabel = "Actions",
+}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   return (
@@ -26,7 +31,9 @@ const TableTemplate = ({ buttonHaver: ButtonHaver, columns, rows }) => {
                   {column.label}
                 </StyledTableCell>
               ))}
-              <StyledTableCell align="center">Actions</StyledTableCell>
+              <StyledTableCell align="center">
+                {buttonHaverLabel ?? ""}
+              </StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>

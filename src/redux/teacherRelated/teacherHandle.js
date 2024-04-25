@@ -39,6 +39,21 @@ export const getTeacherDetails = (id) => async (dispatch) => {
     dispatch(getError(error));
   }
 };
+export const makeTeacherHead = (payload) => async (dispatch) => {
+  dispatch(getRequest());
+
+  try {
+    const result = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/changeClassTeacher`,
+      payload
+    );
+    if (result.data) {
+      dispatch(doneSuccess(result.data));
+    }
+  } catch (error) {
+    dispatch(getError(error));
+  }
+};
 
 export const updateTeachSubject =
   (teacherId, teachSubject) => async (dispatch) => {
