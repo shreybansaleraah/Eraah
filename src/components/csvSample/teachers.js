@@ -12,6 +12,7 @@ function Teachers() {
           <th scope="col">Aadhar</th>
           <th scope="col">Pan</th>
           <th scope="col">Subject</th>
+          {/* <th scope="col">Class Teacher</th> */}
           <th scope="col">Class Teacher</th>
         </tr>
       </thead>
