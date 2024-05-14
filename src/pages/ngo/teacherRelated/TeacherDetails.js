@@ -49,8 +49,14 @@ const TeacherDetails = () => {
         id: teacherID,
         teachSclass: className,
       };
-      dispatch(makeTeacherHead(payload));
-      dispatch(getTeacherDetails(teacherID));
+      dispatch(
+        makeTeacherHead(payload, (callback) => {
+          if (callback) {
+            dispatch(getTeacherDetails(teacherID));
+          }
+        })
+      );
+      // dispatch(getTeacherDetails(teacherID));
       setShowModal(false);
     }
   };
@@ -188,18 +194,20 @@ const TeacherDetails = () => {
               </div>
             </div>
 
-            <div style={{ position: "absolute", top: "0rem", right: "1rem" }}>
-              <button
-                type="button"
-                // id="showModalBtn"
-                class="btn btn-outline-primary"
-                // data-bs-toggle="modal"
-                // data-bs-target="#classTeacher"
-                onClick={() => setShowModal(true)}
-              >
-                Make Class Teacher
-              </button>
-            </div>
+            {teacherDetails?.classTeacher === "NO" && (
+              <div style={{ position: "absolute", top: "0rem", right: "1rem" }}>
+                <button
+                  type="button"
+                  // id="showModalBtn"
+                  class="btn btn-outline-primary"
+                  // data-bs-toggle="modal"
+                  // data-bs-target="#classTeacher"
+                  onClick={() => setShowModal(true)}
+                >
+                  Make Class Teacher
+                </button>
+              </div>
+            )}
             {showModal && (
               <div
                 className="modal"

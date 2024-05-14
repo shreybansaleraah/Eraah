@@ -24,6 +24,7 @@ import NgoDetailsPage from "./ngoDetailsPage";
 import NoticeDetail from "../noticeDetail";
 import Dashboard from "./Dashboard";
 import drawerIcon from "../../assets/drawerIcon.svg";
+import AddDonor from "./addDonor";
 
 const AdminDashboard = () => {
   const [open, setOpen] = useState(false);
@@ -106,6 +107,7 @@ const AdminDashboard = () => {
             <Route path="/admin/dashboard" element={<AdminHomePage />} />
             <Route path="/admin/allNgo" element={<AllNgoPage />} />
             <Route path="/admin/addNgo" element={<AddNgo />} />
+            <Route path="/admin/addDonor" element={<AddDonor />} />
             <Route path="/admin/ngoDetails" element={<NgoDetailsPage />} />
             <Route path="/noticeDetail" element={<NoticeDetail />} />
             <Route path="/logout" element={<Logout />} />

@@ -43,23 +43,22 @@ const AddTeacher = () => {
     subjectDetails.sclassName &&
     subjectDetails.sclassName._id;
 
-  const fields = {
-    name,
-    email,
-    password,
-    aadhar,
-    pan,
-    photo,
-    role,
-    school,
-    teachSubject,
-    teachSclass,
-    classTeacher,
-  };
-
   const submitHandler = (event) => {
     event.preventDefault();
     setLoader(true);
+    const fields = {
+      name,
+      email,
+      password,
+      aadhar,
+      pan,
+      photo,
+      role,
+      school,
+      teachSubject,
+      teachSclass,
+      classTeacher,
+    };
     dispatch(registerUser(fields, role));
   };
 
@@ -102,7 +101,9 @@ const AddTeacher = () => {
             type="text"
             placeholder="Enter teacher's name..."
             value={name}
-            onChange={(event) => setName(event.target.value)}
+            onChange={(event) => {
+              setName(event.target.value);
+            }}
             autoComplete="name"
             required
           />
@@ -172,7 +173,14 @@ const AddTeacher = () => {
                   class="form-check-input me-1"
                   type="checkbox"
                   value={classTeacher}
-                  onChange={setClassTeacher}
+                  onChange={(value) => {
+                    // console.log(value);
+                    // console.log(value.target);
+                    // console.log(value.target.checked);
+                    // console.log(value.target.value);
+                    setClassTeacher(value.target.checked);
+                    // console.log(fields);
+                  }}
                   id="firstCheckbox"
                 />
                 <label class="form-check-label mx-2" for="firstCheckbox">

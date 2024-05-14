@@ -54,6 +54,7 @@ export const registerUser = (fields, role) => async (dispatch) => {
       dispatch(authFailed(result.data.message));
     }
   } catch (error) {
+    console.log("error", error);
     dispatch(authError(error));
   }
 };

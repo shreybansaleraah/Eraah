@@ -39,7 +39,7 @@ export const getTeacherDetails = (id) => async (dispatch) => {
     dispatch(getError(error));
   }
 };
-export const makeTeacherHead = (payload) => async (dispatch) => {
+export const makeTeacherHead = (payload, callback) => async (dispatch) => {
   dispatch(getRequest());
 
   try {
@@ -49,9 +49,11 @@ export const makeTeacherHead = (payload) => async (dispatch) => {
     );
     if (result.data) {
       dispatch(doneSuccess(result.data));
+      callback(true);
     }
   } catch (error) {
     dispatch(getError(error));
+    callback(false);
   }
 };
 
