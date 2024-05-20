@@ -14,6 +14,7 @@ const AddNotice = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
   const [entryFee, setEntryFee] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -23,7 +24,7 @@ const AddNotice = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
 
-  const fields = { title, time, description, entryFee, date, NGOID };
+  const fields = { title, time, description, location, entryFee, date, NGOID };
   const address = "Notice";
 
   const submitHandler = (event) => {
@@ -86,6 +87,16 @@ const AddNotice = () => {
             placeholder="Enter notice details..."
             value={description}
             onChange={(event) => setDescription(event.target.value)}
+            required
+          />
+          <label>Location</label>
+          <textarea
+            className="registerInput"
+            type="text"
+            rows={2}
+            placeholder="Enter location..."
+            value={location}
+            onChange={(event) => setLocation(event.target.value)}
             required
           />
 
