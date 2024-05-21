@@ -30,7 +30,7 @@ export const getAllNoticesOnDashboard = (id) => async (dispatch) => {
     } else {
       console.log(result.data);
       // callback(result.data);
-      dispatch(getSuccess(result.data));
+      dispatch(getSuccess(result.data.data));
     }
   } catch (error) {
     //   onError("Something went wrong");
