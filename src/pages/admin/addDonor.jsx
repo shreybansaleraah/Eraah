@@ -6,9 +6,10 @@ import { addNgo, updateNgo } from "../../redux/ngoRelated/ngoHandle";
 import Popup from "../../components/Popup";
 import CancelIcon from "@mui/icons-material/Cancel";
 import BackIcon from "../../assets/back.png";
+import { addDonor } from "../../utils/api-factory";
 
 function AddDonor({ edit = false, modalClose, handleUpdateDonor, data }) {
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [page, setPage] = useState(1);
@@ -123,23 +124,45 @@ function AddDonor({ edit = false, modalClose, handleUpdateDonor, data }) {
   const handleAddNgo = () => {
     console.log("payload is ", payload);
     if (checkValidPage3()) {
+      setLoading(true);
       console.log("valid is true");
+      var createPayload = {
+        name: payload.name,
+        phoneNumber: payload.phoneNumber,
+        email: payload.email,
+        pan: payload.pan,
+        aadhar: payload.aadhar,
+        gender: payload.gender,
+        age: payload.age,
+        bankDetails: {
+          name: payload.accountName,
+          accountNumber: payload.accountNumber,
+          ifsc: payload.ifsc,
+          bankName: payload.bankName,
+          branchName: payload.branchName,
+        },
+        address: {
+          place: payload.place,
+          city: payload.city,
+          state: payload.state,
+        },
+      };
 
-      dispatch(
-        addNgo(
-          payload,
-          (callback) => {
-            console.log("add successfully");
-            setErrorMessage("Added successfully");
-            setShowPopup(true);
-            resetPayload();
-          },
-          (onError) => {
-            setErrorMessage("try again, something went wrong");
-            console.log("get error", onError);
-            setShowPopup(true);
-          }
-        )
+      addDonor(
+        createPayload,
+        (callback) => {
+          console.log("add successfully");
+          setErrorMessage("Added successfully");
+          setShowPopup(true);
+          resetPayload();
+          setLoading(false);
+        },
+        (onError) => {
+          setErrorMessage("try again, something went wrong");
+          console.log("get error", onError);
+          setShowPopup(true);
+          setLoading(false);
+        }
       );
     } else {
       console.log("vvaiid is not true");
@@ -151,9 +174,30 @@ function AddDonor({ edit = false, modalClose, handleUpdateDonor, data }) {
     console.log("payload is ", payload);
     // setPayload({ ...payload, ngoId: data._id });
     if (checkValidPage3()) {
+      var createPayload = {
+        name: payload.name,
+        phoneNumber: payload.phoneNumber,
+        email: payload.email,
+        pan: payload.pan,
+        aadhar: payload.aadhar,
+        gender: payload.gender,
+        age: payload.age,
+        bankDetails: {
+          name: payload.accountName,
+          accountNumber: payload.accountNumber,
+          ifsc: payload.ifsc,
+          bankName: payload.bankName,
+          branchName: payload.branchName,
+        },
+        address: {
+          place: payload.place,
+          city: payload.city,
+          state: payload.state,
+        },
+      };
       console.log("valid is true");
 
-      handleUpdateDonor(payload, resetPayload);
+      handleUpdateDonor(createPayload, resetPayload);
     } else {
       console.log("vvaiid is not true");
 
@@ -179,7 +223,24 @@ function AddDonor({ edit = false, modalClose, handleUpdateDonor, data }) {
   useEffect(() => {
     if (edit) {
       console.log(data);
-      setPayload({ ...payload, ...data });
+      var createdata = {
+        name: data.name,
+        phoneNumber: data.phoneNumber,
+        email: data.email,
+        pan: data.pan,
+        aadhar: data.aadhar,
+        gender: data.gender,
+        age: data.age,
+        accountName: data.bankDetails.name,
+        accountNumber: data.bankDetails.accountNumber,
+        ifsc: data.bankDetails.ifsc,
+        bankName: data.bankDetails.bankName,
+        branchName: data.bankDetails.branchName,
+        place: data.address.place,
+        city: data.address.city,
+        state: data.address.state,
+      };
+      setPayload({ ...payload, ...createdata });
     }
   }, []);
 
@@ -382,44 +443,105 @@ function AddDonor({ edit = false, modalClose, handleUpdateDonor, data }) {
           </div>
         </>
       ) : (
-        <div className="d-flex justify-content-between flex-wrap">
-          <div
-            class="mb-3 col-12 col-lg-6 col-sm-6"
-            style={{ paddingRight: "2px" }}
-          >
-            <label for="formFileSm" class="form-label">
-              bank statement
-            </label>
-            <input
-              class="form-control form-control-sm"
-              id="formFileSm"
-              type="file"
-              accept="application/pdf"
-              // value={payload.bankStatement}
-              name="bankStatement"
-              onChange={handleChangePayload}
-              // required
-            />
+        <>
+          <div className="d-flex justify-content-between flex-wrap">
+            <div
+              class="mb-3 col-12 col-lg-6 col-sm-6"
+              style={{ paddingRight: "2px" }}
+            >
+              <label for="exampleFormControlInput1" class="form-label">
+                Name on bank
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Enter name in bank"
+                onChange={handleChangePayload}
+                value={payload.accountName}
+                name="accountName"
+                required
+              />
+            </div>
+            <div
+              class="mb-3 col-12 col-lg-6 col-sm-6"
+              style={{ paddingLeft: "2px" }}
+            >
+              <label for="formFileSm" class="form-label">
+                Account number
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Enter account number"
+                name="accountNumber"
+                value={payload.accountNumber}
+                onChange={handleChangePayload}
+                required
+              />
+            </div>
           </div>
-          <div
-            class="mb-3 col-12 col-lg-6 col-sm-6"
-            style={{ paddingLeft: "2px" }}
-          >
-            <label for="formFileSm" class="form-label">
-              Address Proof
-            </label>
-            <input
-              class="form-control form-control-sm"
-              id="formFileSm"
-              type="file"
-              accept="application/pdf"
-              // value={payload.addressProof}
-              name="addressProof"
-              onChange={handleChangePayload}
-              required
-            />
+
+          <div className="d-flex justify-content-between flex-wrap">
+            <div
+              class="mb-3 col-12 col-lg-12 col-sm-12"
+              style={{ paddingRight: "2px" }}
+            >
+              <label for="exampleFormControlInput1" class="form-label">
+                IFSC
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Enter IFSC"
+                onChange={handleChangePayload}
+                value={payload.ifsc.toUpperCase()}
+                name="ifsc"
+                required
+              />
+            </div>
           </div>
-        </div>
+          <div className="d-flex justify-content-between flex-wrap">
+            <div
+              class="mb-3 col-12 col-lg-6 col-sm-6"
+              style={{ paddingLeft: "2px" }}
+            >
+              <label for="formFileSm" class="form-label">
+                BankName
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Enter Bank name"
+                name="bankName"
+                value={payload.bankName}
+                onChange={handleChangePayload}
+                required
+              />
+            </div>
+            <div
+              class="mb-3 col-12 col-lg-6 col-sm-6"
+              style={{ paddingLeft: "2px" }}
+            >
+              <label for="formFileSm" class="form-label">
+                Branch name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Enter Branch name"
+                name="branchName"
+                value={payload.branchName}
+                onChange={handleChangePayload}
+                required
+              />
+            </div>
+          </div>
+        </>
       )}
       <button
         type="button"

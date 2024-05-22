@@ -25,6 +25,8 @@ import NoticeDetail from "../noticeDetail";
 import Dashboard from "./Dashboard";
 import drawerIcon from "../../assets/drawerIcon.svg";
 import AddDonor from "./addDonor";
+import AllDonorsPage from "./allDonorsPage";
+import DonorDetailsPage from "./donorDetailsPage";
 
 const AdminDashboard = () => {
   const [open, setOpen] = useState(false);
@@ -106,9 +108,11 @@ const AdminDashboard = () => {
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="/admin/dashboard" element={<AdminHomePage />} />
             <Route path="/admin/allNgo" element={<AllNgoPage />} />
+            <Route path="/admin/allDonors" element={<AllDonorsPage />} />
             <Route path="/admin/addNgo" element={<AddNgo />} />
             <Route path="/admin/addDonor" element={<AddDonor />} />
             <Route path="/admin/ngoDetails" element={<NgoDetailsPage />} />
+            <Route path="/admin/donorDetails" element={<DonorDetailsPage />} />
             <Route path="/noticeDetail" element={<NoticeDetail />} />
             <Route path="/logout" element={<Logout />} />
           </Routes>

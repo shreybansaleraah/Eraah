@@ -45,3 +45,66 @@ export const uploadDeployementProof = (payload, callback, onError) => {
       onError("something went wrong");
     });
 };
+export const fetchAllDonors = (callback, onError) => {
+  axios
+    .get(
+      `${process.env.REACT_APP_BASE_URL}/admin/getAllDonor?id=${
+        JSON.parse(localStorage.getItem("user"))._id
+      }`
+    )
+    .then((result) => {
+      callback(result.data.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};
+export const deleteDonor = (id, callback, onError) => {
+  axios
+    .get(`${process.env.REACT_APP_BASE_URL}/admin/getAllDonor?id=${id}`)
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};
+export const updateDonor = (id, payload, callback, onError) => {
+  axios
+    .post(
+      `${process.env.REACT_APP_BASE_URL}/admin/updateDonor?id=${id}`,
+      payload
+    )
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};
+export const addDonor = (payload, callback, onError) => {
+  axios
+    .post(`${process.env.REACT_APP_BASE_URL}/admin/addDonor`, payload)
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};
+export const getDonorInfo = (id, callback, onError) => {
+  // conso;
+  axios
+    .get(`${process.env.REACT_APP_BASE_URL}/donorInfo?id=${id}`)
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};

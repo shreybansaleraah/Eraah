@@ -94,31 +94,54 @@ const SideBar = () => {
           </ListItemIcon>
           <ListItemText primary="Add NGO" />
         </ListItemButton>
-        {false && (
-          <ListItemButton
-            component={Link}
-            to="/admin/addDonor"
-            style={
-              location.pathname.startsWith("/admin/addDonor")
-                ? {
-                    backgroundColor: "rgba(112, 127, 221, 0.1)",
-                    color: "#707FDD",
-                  }
-                : {}
-            }
-          >
-            <ListItemIcon>
-              <AssignmentIcon
-                style={{
-                  color: location.pathname.startsWith("/admin/addDonor")
-                    ? "#707FDD"
-                    : "inherit",
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText primary="Add Donor" />
-          </ListItemButton>
-        )}
+        {/* {false && ( */}
+        <ListItemButton
+          component={Link}
+          to="/admin/allDonors"
+          style={
+            location.pathname.startsWith("/admin/allDonors")
+              ? {
+                  backgroundColor: "rgba(112, 127, 221, 0.1)",
+                  color: "#707FDD",
+                }
+              : {}
+          }
+        >
+          <ListItemIcon>
+            <ClassOutlinedIcon
+              style={{
+                color: location.pathname.startsWith("/admin/allDonors")
+                  ? "#707FDD"
+                  : "inherit",
+              }}
+            />
+          </ListItemIcon>
+          <ListItemText primary="Donors" />
+        </ListItemButton>
+        <ListItemButton
+          component={Link}
+          to="/admin/addDonor"
+          style={
+            location.pathname.startsWith("/admin/addDonor")
+              ? {
+                  backgroundColor: "rgba(112, 127, 221, 0.1)",
+                  color: "#707FDD",
+                }
+              : {}
+          }
+        >
+          <ListItemIcon>
+            <AssignmentIcon
+              style={{
+                color: location.pathname.startsWith("/admin/addDonor")
+                  ? "#707FDD"
+                  : "inherit",
+              }}
+            />
+          </ListItemIcon>
+          <ListItemText primary="Add Donor" />
+        </ListItemButton>
+        {/* )} */}
         {/*} <ListItemButton component={Link} to="/ngo/teachers">
           <ListItemIcon>
             <SupervisorAccountOutlinedIcon
