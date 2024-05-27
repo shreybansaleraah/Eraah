@@ -20,6 +20,8 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
     address: "",
     trustee: "",
     schoolName: "",
+    city: "",
+    state: "",
     bankStatement: null,
     addressProof: null,
   });
@@ -35,6 +37,8 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
       address: "",
       trustee: "",
       schoolName: "",
+      city: "",
+      state: "",
       bankStatement: null,
       addressProof: null,
     });
@@ -65,6 +69,8 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
       !payload.address ||
       !payload.trustee ||
       !payload.schoolName ||
+      !payload.city ||
+      !payload.state ||
       (!payload.bankStatement && !edit) ||
       (!payload.addressProof && !edit)
     ) {
@@ -361,6 +367,46 @@ function AddNgo({ edit = false, modalClose, handleUpdateNgo, data }) {
           />
         </div>
       </div>
+
+      <div className="d-flex justify-content-between flex-wrap">
+        <div
+          class="mb-3 col-12 col-lg-6 col-sm-6"
+          style={{ paddingRight: "2px" }}
+        >
+          <label for="exampleFormControlInput1" class="form-label">
+            City
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="exampleFormControlInput1"
+            placeholder="Enter city"
+            name="city"
+            onChange={handleChangePayload}
+            value={payload.city}
+            required
+          />
+        </div>
+        <div
+          class="mb-3 col-12 col-lg-6 col-sm-6"
+          style={{ paddingLeft: "2px" }}
+        >
+          <label for="exampleFormControlInput1" class="form-label">
+            State
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+            placeholder="Enter state"
+            onChange={handleChangePayload}
+            value={payload.state}
+            name="state"
+            required
+          />
+        </div>
+      </div>
+
       <button
         type="button"
         class="btn btn-primary"

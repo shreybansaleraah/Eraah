@@ -49,11 +49,19 @@ function Home() {
               <span className="text-secondary">Pan</span>
               <p>{ngoDetails?.pan}</p>
             </div>
+            <div className="">
+              <span className="text-secondary">City</span>
+              <p>{ngoDetails?.city || ""}</p>
+            </div>
           </div>
           <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
             <div className="">
               <span className="text-secondary">Address</span>
               <p>{ngoDetails?.address || ""}</p>
+            </div>
+            <div className="">
+              <span className="text-secondary">State</span>
+              <p>{ngoDetails?.state || ""}</p>
             </div>
           </div>
         </div>

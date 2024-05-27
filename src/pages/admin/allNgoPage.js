@@ -390,7 +390,7 @@ const AllNgoPage = () => {
               width: "80%",
               margin: "auto",
               backgroundColor: "transparent",
-              overflowY: "scroll",
+              overflowY: "hidden",
             }}
           >
             <AddNgo
