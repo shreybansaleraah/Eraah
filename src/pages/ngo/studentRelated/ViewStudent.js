@@ -50,6 +50,7 @@ import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
 import Popup from "../../../components/Popup";
 import defaultImg from "../../../assets/backg.jpg";
 import Person from "../../../assets/person.png";
+import StudentGallery from "../../../components/studentGallery";
 
 const ViewStudent = () => {
   const [showTab, setShowTab] = useState(false);
@@ -57,7 +58,7 @@ const ViewStudent = () => {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
-  const { userDetails, response, loading, error } = useSelector(
+  const { userDetails, currentUser, response, loading, error } = useSelector(
     (state) => state.user
   );
 
@@ -500,7 +501,8 @@ const ViewStudent = () => {
         <div className="col-lg-11 col-sm-11 col-11 col-md-11 m-auto">
           <div className="col-lg-4 col-md-6 col-sm-10 col-4 rounded m-auto d-flex justify-content-center">
             <img
-              src={defaultImg}
+              src={userDetails.photoUrl}
+              // src={defaultImg}
               alt=""
               style={{ width: "22vw", height: "22vw", borderRadius: "50%" }}
             />
@@ -660,9 +662,10 @@ const ViewStudent = () => {
                   <Tab label="Details" value="1" />
                   <Tab label="Attendance" value="2" />
                   <Tab label="Marks" value="3" />
+                  <Tab label="Gallery" value="4" />
                 </TabList>
               </Box>
-              <Container sx={{ marginTop: "3rem", marginBottom: "4rem" }}>
+              <Container sx={{ marginTop: "1rem", marginBottom: "0rem" }}>
                 <TabPanel value="1">
                   <StudentDetailsSection />
                 </TabPanel>
@@ -671,6 +674,12 @@ const ViewStudent = () => {
                 </TabPanel>
                 <TabPanel value="3">
                   <StudentMarksSection />
+                </TabPanel>
+                <TabPanel value="4">
+                  <StudentGallery
+                    studentId={studentID}
+                    ngoId={currentUser._id}
+                  />
                 </TabPanel>
               </Container>
             </TabContext>

@@ -19,7 +19,8 @@ function TeacherDetail() {
         <div className="col-lg-11 col-sm-11 col-11 col-md-11 m-auto mt-4">
           <div className="col-lg-4 col-md-6 col-sm-10 col-4 rounded m-auto d-flex justify-content-center">
             <img
-              src={defaultImg}
+              src={selectedTeacher?.photoUrl}
+              // src={defaultImg}
               alt=""
               style={{
                 width: "22vw",

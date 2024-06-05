@@ -5,19 +5,25 @@ import {
 } from "../../../redux/teacherRelated/teacherHandle";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Container, Typography } from "@mui/material";
+import { Button, Container, Modal, Typography } from "@mui/material";
 import defaultImg from "../../../assets/backg.jpg";
 import Person from "../../../assets/person.png";
 import { getAllSclasses } from "../../../redux/sclassRelated/sclassHandle";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import Popup from "../../../components/Popup";
+import {
+  getGalleryImages,
+  uploadGalleryImages,
+} from "../../../utils/api-factory";
+import CloseIcon from "@mui/icons-material/Close";
 
 const TeacherDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
   const { sclassesList } = useSelector((state) => state.sclass);
-  const { loading, teacherDetails, error } = useSelector(
-    (state) => state.teacher
-  );
+  const { teacherDetails, error } = useSelector((state) => state.teacher);
 
   const userState = useSelector((state) => state.user);
   const { status, currentUser, response } = userState;
@@ -26,6 +32,67 @@ const TeacherDetails = () => {
 
   const [className, setClassName] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showStudents, setShowStudents] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
+  const [gallery, setGallery] = useState([]);
+  const [photo, setPhoto] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const [showAddition, setShowAddition] = useState(false);
+  const fetchData = () => {
+    var payload = {
+      ngoId: currentUser._id,
+      teacherId: teacherID,
+    };
+    getGalleryImages(
+      payload,
+      (callback) => {
+        console.log(callback);
+        setGallery(callback.data);
+      },
+      (onError) => {
+        console.log(onError);
+      }
+    );
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSubmition = () => {
+    console.log("photo");
+    console.log(photo);
+    if (photo && photo.type.includes("image/")) {
+      setLoading(true);
+      var payload = {
+        ngoId: currentUser._id,
+        teacherId: teacherID,
+        img: photo,
+      };
+      uploadGalleryImages(
+        payload,
+        (callback) => {
+          setLoading(false);
+          setMessage(callback.message);
+          setShowAddition(false);
+          setShowPopup(true);
+        },
+        (onError) => {
+          setLoading(false);
+          setMessage(onError.message);
+          // setShowAddition(false);
+          setShowPopup(true);
+        }
+      );
+      // console.log(photo);
+    } else {
+      setMessage("Please select image");
+      setShowPopup(true);
+    }
+  };
 
   useEffect(() => {
     dispatch(getTeacherDetails(teacherID));
@@ -83,11 +150,12 @@ const TeacherDetails = () => {
             <div className="col-lg-11 col-sm-11 col-11 col-md-11 m-auto mt-4">
               <div className="col-lg-4 col-md-6 col-sm-10 col-4 rounded m-auto d-flex justify-content-center">
                 <img
-                  src={defaultImg}
+                  src={teacherDetails.photoUrl}
+                  // src={defaultImg}
                   alt=""
                   style={{
-                    width: "22vw",
-                    height: "22vw",
+                    width: "18vw",
+                    height: "18vw",
                     borderRadius: "50%",
                   }}
                 />
@@ -143,59 +211,128 @@ const TeacherDetails = () => {
 
             <div className="col-lg-11 col-sm-11 col-11 col-md-11 m-auto mt-4">
               <div className="left-panel my-4">
-                <div className="second-heading d-inline-flex justify-content-start align-items-center">
-                  <i className="text-white bi bi-person-square"></i>
-                  <img src={Person} alt="" />
-                  <p className="px-3 m-0 text-white">
-                    <strong>Students</strong>
-                  </p>
+                <div
+                  className="second-heading d-inline-flex justify-content-between align-items-center"
+                  onClick={() => setShowStudents(!showStudents)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="d-inline-flex justify-content-start align-items-center">
+                    <i className="text-white bi bi-person-square"></i>
+                    <img src={Person} alt="" />
+                    <p className="px-3 m-0 text-white">
+                      <strong>Students</strong>
+                    </p>
+                  </div>
+                  {showStudents ? (
+                    <KeyboardArrowDownIcon sx={{ color: "#FFFFFF" }} />
+                  ) : (
+                    <KeyboardArrowRightIcon sx={{ color: "#FFFFFF" }} />
+                  )}
                 </div>
-                <div className="row justify-content-between flex-wrap p-4">
-                  {teacherDetails != null &&
-                    teacherDetails.studentsList?.length && (
-                      <>
-                        {teacherDetails.studentsList.map((item) => {
-                          return (
-                            <div className="col-lg-4 col-12 col-md-6 col-sm-12">
-                              <div class="card" style={{ width: "14rem" }}>
-                                <div
-                                  style={{
-                                    width: "14rem",
-                                    borderRadius: "50%",
-                                    margin: "auto",
-                                  }}
-                                >
-                                  <img
-                                    src="https://images.unsplash.com/photo-1505968409348-bd000797c92e?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                    class="card-img-top"
-                                    alt="..."
-                                  />
-                                </div>
+                {showStudents && (
+                  <div className="row justify-content-between flex-wrap p-4">
+                    {teacherDetails != null &&
+                      teacherDetails.studentsList?.length && (
+                        <>
+                          {teacherDetails.studentsList.map((item) => {
+                            return (
+                              <div className="col-lg-4 col-12 col-md-6 col-sm-12">
+                                <div class="card" style={{ width: "14rem" }}>
+                                  <div
+                                    style={{
+                                      width: "14rem",
+                                      borderRadius: "50%",
+                                      margin: "auto",
+                                    }}
+                                  >
+                                    <img
+                                      src={item.photoUrl}
+                                      // src="https://images.unsplash.com/photo-1505968409348-bd000797c92e?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                      class="card-img-top"
+                                      alt="..."
+                                    />
+                                  </div>
 
-                                <div class="card-body">
-                                  <h5 class="card-title">{item.name}</h5>
-                                  <p class="card-text mb-0">
-                                    Class :{" "}
-                                    <span>
-                                      {item?.sclassName?.sclassName || ""}
-                                    </span>
-                                  </p>
-                                  <p class="card-text mt-0">
-                                    Roll : <span>{item?.rollNum || ""}</span>
-                                  </p>
+                                  <div class="card-body">
+                                    <h5 class="card-title">{item.name}</h5>
+                                    <p class="card-text mb-0">
+                                      Class :{" "}
+                                      <span>
+                                        {item?.sclassName?.sclassName || ""}
+                                      </span>
+                                    </p>
+                                    <p class="card-text mt-0">
+                                      Roll : <span>{item?.rollNum || ""}</span>
+                                    </p>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          );
-                        })}
-                      </>
-                    )}
-                </div>
+                            );
+                          })}
+                        </>
+                      )}
+                  </div>
+                )}
               </div>
             </div>
 
-            {teacherDetails?.classTeacher === "NO" && (
-              <div style={{ position: "absolute", top: "0rem", right: "1rem" }}>
+            <div className="col-lg-11 col-sm-11 col-11 col-md-11 m-auto mt-4">
+              <div className="left-panel my-4">
+                <div
+                  className="second-heading d-inline-flex justify-content-between align-items-center"
+                  onClick={() => setShowGallery(!showGallery)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="d-inline-flex justify-content-start align-items-center">
+                    <i className="text-white bi bi-person-square"></i>
+                    <img src={Person} alt="" />
+                    <p className="px-3 m-0 text-white">
+                      <strong>Gallery</strong>
+                    </p>
+                  </div>
+                  {showGallery ? (
+                    <KeyboardArrowDownIcon sx={{ color: "#FFFFFF" }} />
+                  ) : (
+                    <KeyboardArrowRightIcon sx={{ color: "#FFFFFF" }} />
+                  )}
+                </div>
+                {showGallery && (
+                  <div className="row justify-content-between flex-wrap p-4">
+                    {/* {gallery != null && gallery.length && ( */}
+                    <>
+                      {gallery.map((item) => {
+                        return (
+                          <div className="col-lg-4 col-12 col-md-6 col-sm-12">
+                            <div class="card" style={{ width: "14rem" }}>
+                              <div
+                                style={{
+                                  width: "14rem",
+                                  height: "14rem",
+                                  borderRadius: "50%",
+                                  margin: "auto",
+                                }}
+                              >
+                                <img
+                                  src={item.picUrl}
+                                  // src="https://images.unsplash.com/photo-1505968409348-bd000797c92e?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                  class="card-img-top"
+                                  alt="..."
+                                  style={{ objectFit: "cover" }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </>
+                    {/* )} */}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div style={{ position: "absolute", top: "0rem", right: "1rem" }}>
+              {teacherDetails?.classTeacher === "NO" && (
                 <button
                   type="button"
                   // id="showModalBtn"
@@ -206,8 +343,15 @@ const TeacherDetails = () => {
                 >
                   Make Class Teacher
                 </button>
-              </div>
-            )}
+              )}
+              <button
+                type="button"
+                className="btn btn-outline-success mx-2"
+                onClick={() => setShowAddition(true)}
+              >
+                Add Photo
+              </button>
+            </div>
             {showModal && (
               <div
                 className="modal"
@@ -287,7 +431,71 @@ const TeacherDetails = () => {
                 </div>
               </div>
             )}
+
+            <Modal
+              open={showAddition}
+              onClose={() => {}}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <div
+                style={{
+                  width: "100%",
+                  height: "99.8vh",
+                  background: "transparent",
+                  overflowY: "scroll",
+                }}
+                className="d-flex justify-content-center align-items-center"
+              >
+                <div
+                  className="p-4 rounded shadow pt-2"
+                  style={{
+                    width: "60%",
+                    margin: "auto",
+                    backgroundColor: "white",
+                    overflowY: "auto",
+                  }}
+                >
+                  <div
+                    className="d-flex justify-content-end"
+                    onClick={() => setShowAddition(false)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <CloseIcon />
+                    {/* X */}
+                  </div>
+                  <div className="w-50">
+                    <label for="formFileLg" class="form-label">
+                      upload an image
+                    </label>
+                    <input
+                      class="form-control form-control-lg"
+                      id="formFileLg"
+                      accept="image/*"
+                      type="file"
+                      placeholder="Upload Photo"
+                      onChange={(event) => setPhoto(event.target.files[0])}
+                      required
+                    />
+                  </div>
+                  <div className="d-flex mt-4">
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary"
+                      onClick={() => handleSubmition()}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </Modal>
           </div>
+          <Popup
+            message={message}
+            setShowPopup={setShowPopup}
+            showPopup={showPopup}
+          />
         </Container>
       )}
     </>

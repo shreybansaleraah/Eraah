@@ -185,7 +185,7 @@ const AddStudent = ({ situation }) => {
               value={motherName}
               onChange={(event) => setMotherName(event.target.value)}
               autoComplete="new-password"
-              required
+              // required
             />
             <label>Mother's Occupation</label>
             <input
@@ -195,7 +195,7 @@ const AddStudent = ({ situation }) => {
               value={motherOcc}
               onChange={(event) => setMotherOcc(event.target.value)}
               autoComplete="new-password"
-              required
+              // required
             />
             <label>Father's Name</label>
             <input
@@ -205,7 +205,7 @@ const AddStudent = ({ situation }) => {
               value={fatherName}
               onChange={(event) => setFatherName(event.target.value)}
               autoComplete="new-password"
-              required
+              // required
             />
             <label>Father's Occupation</label>
             <input
@@ -215,7 +215,7 @@ const AddStudent = ({ situation }) => {
               value={fatherOcc}
               onChange={(event) => setFatherOcc(event.target.value)}
               autoComplete="new-password"
-              required
+              // required
             />
             <label>Student Photo</label>
             <input

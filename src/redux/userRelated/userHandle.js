@@ -43,7 +43,7 @@ export const registerUser = (fields, role) => async (dispatch) => {
       `${process.env.REACT_APP_BASE_URL}/${role}Reg`,
       fields,
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "multipart/form-data" },
       }
     );
     if (result.data.schoolName) {
