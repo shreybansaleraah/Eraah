@@ -137,3 +137,76 @@ export const uploadGalleryImages = (payload, callback, onError) => {
       onError(e);
     });
 };
+export const addBlog = (payload, callback, onError) => {
+  // conso;
+
+  axios
+    .post(`${process.env.REACT_APP_BASE_URL}/blog/add`, payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};
+export const getBlogs = (callback, onError) => {
+  // conso;
+
+  axios
+    .get(`${process.env.REACT_APP_BASE_URL}/blogs`)
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};
+export const deleteBlogById = (payload, callback, onError) => {
+  // conso;
+
+  axios
+    .post(`${process.env.REACT_APP_BASE_URL}/blog/delete`, payload)
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};
+export const updateBlog = (id, payload, callback, onError) => {
+  // conso;
+
+  axios
+    .post(`${process.env.REACT_APP_BASE_URL}/blog/update?id=${id}`, payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};
+export const getEachBlog = (id, callback, onError) => {
+  // conso;
+
+  axios
+    .get(`${process.env.REACT_APP_BASE_URL}/eachBlog?id=${id}`)
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};

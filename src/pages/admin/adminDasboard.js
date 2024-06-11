@@ -27,6 +27,9 @@ import drawerIcon from "../../assets/drawerIcon.svg";
 import AddDonor from "./addDonor";
 import AllDonorsPage from "./allDonorsPage";
 import DonorDetailsPage from "./donorDetailsPage";
+import AllBlogs from "./blogs/AllBlogs";
+import AddBlog from "./blogs/addBlog";
+import ViewBlogs from "./blogs/viewBlog";
 
 const AdminDashboard = () => {
   const [open, setOpen] = useState(false);
@@ -109,6 +112,9 @@ const AdminDashboard = () => {
             <Route path="/admin/dashboard" element={<AdminHomePage />} />
             <Route path="/admin/allNgo" element={<AllNgoPage />} />
             <Route path="/admin/allDonors" element={<AllDonorsPage />} />
+            <Route path="/admin/blogs" element={<AllBlogs />} />
+            <Route path="/admin/addBlog" element={<AddBlog />} />
+            <Route path="/admin/blogDetail" element={<ViewBlogs />} />
             <Route path="/admin/addNgo" element={<AddNgo />} />
             <Route path="/admin/addDonor" element={<AddDonor />} />
             <Route path="/admin/ngoDetails" element={<NgoDetailsPage />} />

@@ -40,7 +40,7 @@ function UploadCsv({ onBack, actionFor, payload = {} }) {
             dispatch(getAllSclasses(NGOID, "Sclass"));
           },
           (onError) => {
-            setMessage(onError.message);
+            setMessage(onError.response.data.message);
             setShowPopup(true);
           }
         )

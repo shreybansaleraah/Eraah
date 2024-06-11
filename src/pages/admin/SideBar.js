@@ -118,6 +118,7 @@ const SideBar = () => {
           </ListItemIcon>
           <ListItemText primary="Donors" />
         </ListItemButton>
+
         <ListItemButton
           component={Link}
           to="/admin/addDonor"
@@ -140,6 +141,30 @@ const SideBar = () => {
             />
           </ListItemIcon>
           <ListItemText primary="Add Donor" />
+        </ListItemButton>
+
+        <ListItemButton
+          component={Link}
+          to="/admin/blogs"
+          style={
+            location.pathname.startsWith("/admin/blogs")
+              ? {
+                  backgroundColor: "rgba(112, 127, 221, 0.1)",
+                  color: "#707FDD",
+                }
+              : {}
+          }
+        >
+          <ListItemIcon>
+            <ClassOutlinedIcon
+              style={{
+                color: location.pathname.startsWith("/admin/blogs")
+                  ? "#707FDD"
+                  : "inherit",
+              }}
+            />
+          </ListItemIcon>
+          <ListItemText primary="Blogs" />
         </ListItemButton>
         {/* )} */}
         {/*} <ListItemButton component={Link} to="/ngo/teachers">

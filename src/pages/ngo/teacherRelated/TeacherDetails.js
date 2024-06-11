@@ -82,7 +82,7 @@ const TeacherDetails = () => {
         },
         (onError) => {
           setLoading(false);
-          setMessage(onError.message);
+          setMessage(onError.response.data.message);
           // setShowAddition(false);
           setShowPopup(true);
         }

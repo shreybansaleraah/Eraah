@@ -52,7 +52,7 @@ function StudentGallery({ studentId, ngoId }) {
         },
         (onError) => {
           setLoading(false);
-          setMessage(onError.message);
+          setMessage(onError.response.data.message);
           // setShowAddition(false);
           setShowPopup(true);
         }
