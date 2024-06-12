@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteUser,
@@ -42,7 +42,7 @@ import {
 import CustomBarChart from "../../../components/CustomBarChart";
 import CustomPieChart from "../../../components/CustomPieChart";
 import { StyledTableCell, StyledTableRow } from "../../../components/styles";
-
+import EditIcon from "@mui/icons-material/Edit";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
 import TableChartIcon from "@mui/icons-material/TableChart";
@@ -51,6 +51,7 @@ import Popup from "../../../components/Popup";
 import defaultImg from "../../../assets/backg.jpg";
 import Person from "../../../assets/person.png";
 import StudentGallery from "../../../components/studentGallery";
+import { uploadStudentPhoto } from "../../../utils/api-factory";
 
 const ViewStudent = () => {
   const [showTab, setShowTab] = useState(false);
@@ -97,7 +98,38 @@ const ViewStudent = () => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
+  const fileInputRef = useRef(null);
 
+  const handleDivClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("photo", file);
+      console.log(file);
+      uploadStudentPhoto(
+        studentID,
+        formData,
+        (callback) => {
+          if (callback.error) {
+            setMessage(callback.message ?? "something went wrong");
+            setShowPopup(true);
+          } else {
+            dispatch(getUserDetails(studentID, address));
+            setMessage("upload successfully");
+            setShowPopup(true);
+          }
+        },
+        (onError) => {
+          setMessage(onError.response.data.message ?? "something went wrong");
+          setShowPopup(true);
+        }
+      );
+    }
+  };
   const handleOpen = (subId) => {
     setOpenStates((prevState) => ({
       ...prevState,
@@ -499,13 +531,43 @@ const ViewStudent = () => {
     return (
       <div>
         <div className="col-lg-11 col-sm-11 col-11 col-md-11 m-auto">
-          <div className="col-lg-4 col-md-6 col-sm-10 col-4 rounded m-auto d-flex justify-content-center">
-            <img
-              src={userDetails.photoUrl}
-              // src={defaultImg}
-              alt=""
-              style={{ width: "22vw", height: "22vw", borderRadius: "50%" }}
-            />
+          <div
+            className="col-lg-4 col-md-6 col-sm-10 col-4 rounded m-auto d-flex justify-content-center"
+            onClick={handleDivClick}
+          >
+            <div style={{ position: "relative" }}>
+              <img
+                src={
+                  userDetails.photoUrl ||
+                  "https://images.unsplash.com/photo-1505968409348-bd000797c92e?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                }
+                // src={defaultImg}
+                alt=""
+                style={{ width: "22vw", height: "22vw", borderRadius: "50%" }}
+              />
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: "20%",
+                  padding: "0.2rem",
+                  backgroundColor: "green",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "50%",
+                  color: "#FFFFFF",
+                }}
+              >
+                <EditIcon />
+              </div>
+            </div>
           </div>
           <div className="left-panel my-4">
             <div className="second-heading d-inline-flex justify-content-start align-items-center">

@@ -210,3 +210,45 @@ export const getEachBlog = (id, callback, onError) => {
       onError(e);
     });
 };
+export const uploadStudentPhoto = (id, payload, callback, onError) => {
+  // conso;
+
+  axios
+    .post(
+      `${process.env.REACT_APP_BASE_URL}/uploadStudentPhoto?id=${id}`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    )
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};
+export const uploadTeacherPhoto = (id, payload, callback, onError) => {
+  // conso;
+
+  axios
+    .post(
+      `${process.env.REACT_APP_BASE_URL}/uploadTeacherPhoto?id=${id}`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    )
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};

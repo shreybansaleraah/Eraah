@@ -12,6 +12,7 @@ function Teachers() {
           <th scope="col">Aadhar</th>
           <th scope="col">Pan</th>
           <th scope="col">Subject</th>
+          <th scope="col">Photo</th>
           {/* <th scope="col">Class Teacher</th> */}
           <th scope="col">Class Teacher</th>
         </tr>
@@ -25,6 +26,7 @@ function Teachers() {
           <td>123412341234</td>
           <td>ASDFG1234A</td>
           <td>ENGLISH</td>
+          <td>https://upload.com/renuPic.png</td>
           <td>yes</td>
         </tr>
         <tr>
@@ -35,6 +37,7 @@ function Teachers() {
           <td>123412341234</td>
           <td>ASDFG1234A</td>
           <td>HINDI</td>
+          <td>https://upload.com/meenuPic.jpeg</td>
           <td>no</td>
         </tr>
         <tr>
@@ -45,6 +48,7 @@ function Teachers() {
           <td>123412341234</td>
           <td>ASDFG1234A</td>
           <td>MATHS</td>
+          <td>https://upload.com/sunitaPic.jpg</td>
           <td>yes</td>
         </tr>
       </tbody>

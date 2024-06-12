@@ -8,6 +8,7 @@ function StudentSample() {
           <th scope="col">Name</th>
           <th scope="col">Roll</th>
           <th scope="col">Class</th>
+          <th scope="col">Photo Url</th>
           <th scope="col">Father Name</th>
           <th scope="col">Father Occupation</th>
           <th scope="col">Mother Name</th>
@@ -19,6 +20,7 @@ function StudentSample() {
           <td>Rohan</td>
           <td>43</td>
           <td>9</td>
+          <td>https://upload.com/rohanPic.jpeg</td>
           <td>Ramcharan</td>
           <td>Farmer</td>
           <td>Shyambati</td>
@@ -28,6 +30,7 @@ function StudentSample() {
           <td>Mohan</td>
           <td>44</td>
           <td>10</td>
+          <td>https://upload.com/mohanPic.png</td>
           <td>Shyamcharan</td>
           <td>Farmer</td>
           <td>Ryambati</td>
@@ -37,6 +40,7 @@ function StudentSample() {
           <td>Sohan</td>
           <td>45</td>
           <td>11</td>
+          <td>https://upload.com/sohanPic.jpg</td>
           <td>Ramcharan</td>
           <td>Farmer</td>
           <td>Maya</td>

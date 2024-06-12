@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   getTeacherDetails,
   makeTeacherHead,
@@ -15,8 +15,10 @@ import Popup from "../../../components/Popup";
 import {
   getGalleryImages,
   uploadGalleryImages,
+  uploadTeacherPhoto,
 } from "../../../utils/api-factory";
 import CloseIcon from "@mui/icons-material/Close";
+import EditIcon from "@mui/icons-material/Edit";
 
 const TeacherDetails = () => {
   const navigate = useNavigate();
@@ -41,6 +43,38 @@ const TeacherDetails = () => {
   const [message, setMessage] = useState("");
 
   const [showAddition, setShowAddition] = useState(false);
+  const fileInputRef = useRef(null);
+
+  const handleDivClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("photo", file);
+      console.log(file);
+      uploadTeacherPhoto(
+        teacherID,
+        formData,
+        (callback) => {
+          if (callback.error) {
+            setMessage(callback.message ?? "something went wrong");
+            setShowPopup(true);
+          } else {
+            dispatch(getTeacherDetails(teacherID));
+            setMessage("upload successfully");
+            setShowPopup(true);
+          }
+        },
+        (onError) => {
+          setMessage(onError.response.data.message ?? "something went wrong");
+          setShowPopup(true);
+        }
+      );
+    }
+  };
   const fetchData = () => {
     var payload = {
       ngoId: currentUser._id,
@@ -148,17 +182,47 @@ const TeacherDetails = () => {
         <Container>
           <div style={{ position: "relative" }}>
             <div className="col-lg-11 col-sm-11 col-11 col-md-11 m-auto mt-4">
-              <div className="col-lg-4 col-md-6 col-sm-10 col-4 rounded m-auto d-flex justify-content-center">
-                <img
-                  src={teacherDetails.photoUrl}
-                  // src={defaultImg}
-                  alt=""
-                  style={{
-                    width: "18vw",
-                    height: "18vw",
-                    borderRadius: "50%",
-                  }}
-                />
+              <div
+                className="col-lg-4 col-md-6 col-sm-10 col-4 rounded m-auto d-flex justify-content-center"
+                onClick={handleDivClick}
+              >
+                <div style={{ position: "relative" }}>
+                  <img
+                    src={
+                      teacherDetails.photoUrl ||
+                      "https://images.unsplash.com/photo-1505968409348-bd000797c92e?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    }
+                    // src={defaultImg}
+                    alt=""
+                    style={{
+                      width: "18vw",
+                      height: "18vw",
+                      borderRadius: "50%",
+                    }}
+                  />
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: "none" }}
+                    onChange={handleFileChange}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: -1,
+                      right: "20%",
+                      padding: "0.2rem",
+                      backgroundColor: "green",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: "50%",
+                      color: "#FFFFFF",
+                    }}
+                  >
+                    <EditIcon />
+                  </div>
+                </div>
               </div>
               <div className="left-panel my-4">
                 <div className="second-heading d-inline-flex justify-content-start align-items-center">
@@ -240,16 +304,22 @@ const TeacherDetails = () => {
                                 <div class="card" style={{ width: "14rem" }}>
                                   <div
                                     style={{
-                                      width: "14rem",
+                                      width: "13.9rem",
                                       borderRadius: "50%",
-                                      margin: "auto",
+                                      // margin: "auto",
+                                      objectFit: "cover",
+                                      // height: "7rem",
                                     }}
                                   >
                                     <img
-                                      src={item.photoUrl}
+                                      src={
+                                        item.photoUrl ||
+                                        "https://images.unsplash.com/photo-1505968409348-bd000797c92e?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                      }
                                       // src="https://images.unsplash.com/photo-1505968409348-bd000797c92e?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                       class="card-img-top"
                                       alt="..."
+                                      style={{ width: "100%", height: "8rem" }}
                                     />
                                   </div>
 
