@@ -21,6 +21,7 @@ function AddBlog({ edit = false, modalClose, handleUpdateBlog, data }) {
   });
   const [photo, setPhoto] = useState(null);
   const fileInputRef = useRef(null);
+  const titleRef = useRef(null);
   const resetPayload = () => {
     setPayload({
       title: "",
@@ -29,13 +30,12 @@ function AddBlog({ edit = false, modalClose, handleUpdateBlog, data }) {
     setPhoto(null);
     document.getElementsByName("title").value = "";
     fileInputRef.current.value = "";
+    titleRef.current.value = "";
   };
   const handleChangePayload = (e) => {
     setPayload({
       ...payload,
-      [e.target.name]: e.target.name.includes("title")
-        ? e.target.value.toUpperCase()
-        : e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -134,8 +134,9 @@ function AddBlog({ edit = false, modalClose, handleUpdateBlog, data }) {
                 id="exampleFormControlInput1"
                 placeholder="Enter title"
                 onChange={handleChangePayload}
-                value={payload.title}
                 name="title"
+                value={payload.title}
+                ref={titleRef}
                 required
               />
             </div>
