@@ -248,8 +248,15 @@ const TeacherDetails = () => {
                       <span className="text-secondary">Class</span>
                       {teacherDetails?.teachSclass != null && (
                         <p>
-                          {teacherDetails?.teachSclass?.map((item) => {
-                            return <span>{item.sclassName},</span>;
+                          {teacherDetails?.teachSclass?.map((item, idx) => {
+                            return (
+                              <span>
+                                {item.sclassName}
+                                {idx === teacherDetails.teachSclass.length - 1
+                                  ? ""
+                                  : ","}
+                              </span>
+                            );
                           })}
                         </p>
                       )}
@@ -262,7 +269,21 @@ const TeacherDetails = () => {
                   <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
                     <div className="">
                       <span className="text-secondary">Subject</span>
-                      <p>{teacherDetails?.teachSubject?.subName || ""}</p>
+                      {/* <p>{teacherDetails?.teachSubject?.subName || ""}</p> */}
+                      {teacherDetails?.teachSubject != null && (
+                        <p>
+                          {teacherDetails?.teachSubject?.map((item, idx) => {
+                            return (
+                              <span>
+                                {item.subName}
+                                {idx === teacherDetails.teachSubject.length - 1
+                                  ? ""
+                                  : ", "}
+                              </span>
+                            );
+                          })}
+                        </p>
+                      )}
                     </div>
                     <div className="">
                       <span className="text-secondary">Class Teacher</span>

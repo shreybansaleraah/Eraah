@@ -66,10 +66,10 @@ const ShowTeachers = () => {
   const rows = teachersList.map((teacher) => {
     return {
       name: teacher.name,
-      teachSubject: teacher.teachSubject?.subName || null,
-      teachSclass: teacher.teachSclass.sclassName,
+      teachSubject: teacher?.teachSubject || null,
+      teachSclass: teacher.teachSclass || null,
       teachSclassID: teacher.teachSclass._id,
-      id: teacher._id,
+      id: teacher?._id || null,
     };
   });
 
@@ -141,7 +141,7 @@ const ShowTeachers = () => {
               <TableBody>
                 {rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
+                  .map((row, index) => {
                     return (
                       <StyledTableRow
                         hover
@@ -150,27 +150,71 @@ const ShowTeachers = () => {
                         key={row.id}
                       >
                         {columns.map((column) => {
+                          console.log("index is : ", index);
+                          console.log("row is : ", row);
+                          console.log("column is : ", column);
+                          console.log("index is over : ", index);
                           const value = row[column.id];
+                          console.log("value is : ", value);
+
                           if (column.id === "teachSubject") {
                             return (
                               <StyledTableCell
                                 key={column.id}
                                 align={column.align}
                               >
-                                {value ? (
-                                  value
-                                ) : (
-                                  <Button
-                                    variant="contained"
-                                    onClick={() => {
-                                      navigate(
-                                        `/ngo/teachers/choosesubject/${row.teachSclassID}/${row.id}`
-                                      );
-                                    }}
-                                  >
-                                    Add Subject
-                                  </Button>
-                                )}
+                                {
+                                  value != null && value.length > 0
+                                    ? value.map((subject, idx) => {
+                                        return (
+                                          subject.subName +
+                                          `${
+                                            idx === value.length - 1 ? "" : ","
+                                          }`
+                                        );
+                                      })
+                                    : "No Subject Found"
+                                  // <Button
+                                  //   variant="contained"
+                                  //   onClick={() => {
+                                  //     navigate(
+                                  //       `/ngo/teachers/choosesubject/${row.teachSclassID}/${row.id}`
+                                  //     );
+                                  //   }}
+                                  // >
+                                  //   Add Subject
+                                  // </Button>
+                                }
+                              </StyledTableCell>
+                            );
+                          } else if (column.id === "teachSclass") {
+                            return (
+                              <StyledTableCell
+                                key={column.id}
+                                align={column.align}
+                              >
+                                {
+                                  value != null && value.length > 0
+                                    ? value.map((className, idx) => {
+                                        return (
+                                          className.sclassName +
+                                          `${
+                                            idx === value.length - 1 ? "" : ","
+                                          }`
+                                        );
+                                      })
+                                    : "No Class Found"
+                                  // <Button
+                                  //   variant="contained"
+                                  //   onClick={() => {
+                                  //     navigate(
+                                  //       `/ngo/teachers/choosesubject/${row.teachSclassID}/${row.id}`
+                                  //     );
+                                  //   }}
+                                  // >
+                                  //   Add Subject
+                                  // </Button>
+                                }
                               </StyledTableCell>
                             );
                           }
