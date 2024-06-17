@@ -31,7 +31,7 @@ function Teachers() {
         </tr>
         <tr>
           <td>Meenu</td>
-          <td>10</td>
+          <td>10|11|12</td>
           <td>meenu@gmail.com</td>
           <td>1234</td>
           <td>123412341234</td>
@@ -42,7 +42,7 @@ function Teachers() {
         </tr>
         <tr>
           <td>Sunita</td>
-          <td>11</td>
+          <td>11|8</td>
           <td>suneeta@gmail.com</td>
           <td>1234</td>
           <td>123412341234</td>
