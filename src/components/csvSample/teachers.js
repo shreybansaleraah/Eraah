@@ -27,7 +27,7 @@ function Teachers() {
           <td>ASDFG1234A</td>
           <td>ENGLISH</td>
           <td>https://upload.com/renuPic.png</td>
-          <td>yes</td>
+          <td>9</td>
         </tr>
         <tr>
           <td>Meenu</td>
@@ -49,7 +49,7 @@ function Teachers() {
           <td>ASDFG1234A</td>
           <td>MATHS</td>
           <td>https://upload.com/sunitaPic.jpg</td>
-          <td>yes</td>
+          <td>8</td>
         </tr>
       </tbody>
     </table>
