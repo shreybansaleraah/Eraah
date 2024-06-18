@@ -252,3 +252,24 @@ export const uploadTeacherPhoto = (id, payload, callback, onError) => {
       onError(e);
     });
 };
+export const urlConverter = (id, payload, callback, onError) => {
+  // conso;
+
+  axios
+    .post(
+      `${process.env.REACT_APP_BASE_URL}/eraahUrlConverter?id=${id}`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    )
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};

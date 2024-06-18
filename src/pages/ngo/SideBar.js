@@ -17,7 +17,7 @@ import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 import ReportIcon from "@mui/icons-material/Report";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-
+import LinkIcon from "@mui/icons-material/Link";
 const SideBar = () => {
   const location = useLocation();
   return (
@@ -107,6 +107,18 @@ const SideBar = () => {
           </ListItemIcon>
           <ListItemText primary="Facility" />
         </ListItemButton>
+        <ListItemButton component={Link} to="/ngo/urlConverter">
+          <ListItemIcon>
+            <LinkIcon
+              color={
+                location.pathname.startsWith("/ngo/urlConverter")
+                  ? "primary"
+                  : "inherit"
+              }
+            />
+          </ListItemIcon>
+          <ListItemText primary="URL Converter" />
+        </ListItemButton>
         {/* <ListItemButton component={Link} to="/ngo/complains">
           <ListItemIcon>
             <ReportIcon
@@ -122,10 +134,10 @@ const SideBar = () => {
       </React.Fragment>
       <Divider sx={{ my: 1 }} />
       <React.Fragment>
-        <ListSubheader component="div" inset>
+        {/* <ListSubheader component="div" inset>
           User
-        </ListSubheader>
-        <ListItemButton component={Link} to="/ngo/profile">
+        </ListSubheader> */}
+        {/* <ListItemButton component={Link} to="/ngo/profile">
           <ListItemIcon>
             <AccountCircleOutlinedIcon
               color={
@@ -136,7 +148,7 @@ const SideBar = () => {
             />
           </ListItemIcon>
           <ListItemText primary="Profile" />
-        </ListItemButton>
+        </ListItemButton> */}
         <ListItemButton component={Link} to="/logout">
           <ListItemIcon>
             <ExitToAppIcon

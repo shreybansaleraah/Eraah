@@ -46,6 +46,7 @@ import NoticeDetail from "../noticeDetail";
 import errahIcon from "../../assets/errah.png";
 import drawerIcon from "../../assets/drawerIcon.svg";
 import AddFacility from "./facilityRelated/AddFacility";
+import UrlConverter from "./urlConverter";
 
 const NGODashboard = () => {
   const [open, setOpen] = useState(false);
@@ -157,6 +158,7 @@ const NGODashboard = () => {
             />
 
             {/* Student */}
+            <Route path="/ngo/urlConverter" element={<UrlConverter />} />
             <Route
               path="/ngo/addstudents"
               element={<AddStudent situation="Student" />}

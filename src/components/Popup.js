@@ -29,7 +29,7 @@ const Popup = ({ message, setShowPopup, showPopup, severity = "error" }) => {
         anchorOrigin={{ vertical, horizontal }}
         key={vertical + horizontal}
       >
-        {message.toLowerCase().includes("successfully") ? (
+        {message.toLowerCase().includes("success") ? (
           <Alert
             onClose={handleClose}
             severity="success"
