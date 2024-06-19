@@ -58,12 +58,35 @@ function ShowTeachers({ setSubTab }) {
                   </td>
                   <td scope="col">
                     <span id="comment">
-                      <b>{item.teachSclass.sclassName || ""}</b>
+                      {item?.teachSclass != null && (
+                        <p>
+                          <b>
+                            {item?.teachSclass?.map((classData) => {
+                              return <span>{classData.sclassName},</span>;
+                            })}
+                          </b>
+                        </p>
+                      )}
                     </span>
                   </td>
                   <td scope="col">
                     <span id="comment">
-                      <b>{item.teachSubject.subName || ""}</b>
+                      <b>
+                        {item?.teachSubject != null && (
+                          <p>
+                            {item?.teachSubject?.map((subjectData, idx) => {
+                              return (
+                                <span>
+                                  {subjectData.subName}
+                                  {idx === item.teachSubject.length - 1
+                                    ? ""
+                                    : ", "}
+                                </span>
+                              );
+                            })}
+                          </p>
+                        )}
+                      </b>
                     </span>
                   </td>
                 </tr>

@@ -19,7 +19,10 @@ function TeacherDetail() {
         <div className="col-lg-11 col-sm-11 col-11 col-md-11 m-auto mt-4">
           <div className="col-lg-4 col-md-6 col-sm-10 col-4 rounded m-auto d-flex justify-content-center">
             <img
-              src={selectedTeacher?.photoUrl}
+              src={
+                selectedTeacher?.photoUrl ||
+                "https://images.unsplash.com/photo-1505968409348-bd000797c92e?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              }
               // src={defaultImg}
               alt=""
               style={{
@@ -67,7 +70,22 @@ function TeacherDetail() {
               <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
                 <div className="">
                   <span className="text-secondary">Subject</span>
-                  <p>{selectedTeacher?.teachSubject?.subName || ""}</p>
+                  {selectedTeacher?.teachSubject != null && (
+                    <p>
+                      {selectedTeacher?.teachSubject?.map(
+                        (subjectData, idx) => {
+                          return (
+                            <span>
+                              {subjectData.subName}
+                              {idx === selectedTeacher.teachSubject.length - 1
+                                ? ""
+                                : ", "}
+                            </span>
+                          );
+                        }
+                      )}
+                    </p>
+                  )}
                 </div>
                 <div className="">
                   <span className="text-secondary">Class Teacher</span>

@@ -150,12 +150,7 @@ const ShowTeachers = () => {
                         key={row.id}
                       >
                         {columns.map((column) => {
-                          console.log("index is : ", index);
-                          console.log("row is : ", row);
-                          console.log("column is : ", column);
-                          console.log("index is over : ", index);
                           const value = row[column.id];
-                          console.log("value is : ", value);
 
                           if (column.id === "teachSubject") {
                             return (
