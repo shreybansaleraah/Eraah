@@ -7,7 +7,7 @@ import {
   ListSubheader,
 } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
-
+import ThreePIcon from "@mui/icons-material/ThreeP";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -106,6 +106,18 @@ const SideBar = () => {
             />
           </ListItemIcon>
           <ListItemText primary="Facility" />
+        </ListItemButton>
+        <ListItemButton component={Link} to="/ngo/attendence">
+          <ListItemIcon>
+            <ThreePIcon
+              color={
+                location.pathname.startsWith("/ngo/attendence")
+                  ? "primary"
+                  : "inherit"
+              }
+            />
+          </ListItemIcon>
+          <ListItemText primary="Attendence" />
         </ListItemButton>
         <ListItemButton component={Link} to="/ngo/urlConverter">
           <ListItemIcon>

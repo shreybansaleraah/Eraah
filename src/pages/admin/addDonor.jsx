@@ -121,7 +121,7 @@ function AddDonor({ edit = false, modalClose, handleUpdateDonor, data }) {
     return true;
   };
 
-  const handleAddNgo = () => {
+  const handleAddDonor = () => {
     console.log("payload is ", payload);
     if (checkValidPage3()) {
       setLoading(true);
@@ -547,7 +547,7 @@ function AddDonor({ edit = false, modalClose, handleUpdateDonor, data }) {
         type="button"
         class="btn btn-primary"
         onClick={() =>
-          page === 3 ? (edit ? handleUpdate() : handleAddNgo()) : handleNext()
+          page === 3 ? (edit ? handleUpdate() : handleAddDonor()) : handleNext()
         }
       >
         {page === 3 ? (edit ? "Update" : "Add") : "Next"}

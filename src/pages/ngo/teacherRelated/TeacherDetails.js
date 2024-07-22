@@ -19,6 +19,7 @@ import {
 } from "../../../utils/api-factory";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
+import ReactApexChart from "react-apexcharts";
 
 const TeacherDetails = () => {
   const navigate = useNavigate();
@@ -36,11 +37,35 @@ const TeacherDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const [showStudents, setShowStudents] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
+  const [showAttendenceChart, setShowAttendenceChart] = useState(false);
   const [gallery, setGallery] = useState([]);
   const [photo, setPhoto] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
+  const [attendenceOptions, setAttendenceOptions] = useState({
+    series: [0, 0],
+    options: {
+      chart: {
+        width: 380,
+        type: "pie",
+      },
+      labels: ["Present", "Absent"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  });
 
   const [showAddition, setShowAddition] = useState(false);
   const fileInputRef = useRef(null);
@@ -132,6 +157,27 @@ const TeacherDetails = () => {
     dispatch(getTeacherDetails(teacherID));
     dispatch(getAllSclasses(currentUser._id, "Sclass"));
   }, [dispatch, teacherID]);
+
+  useEffect(() => {
+    if (teacherDetails?.attendance?.totalCount) {
+      setAttendenceOptions({
+        ...attendenceOptions,
+        series: [
+          teacherDetails?.attendance?.presentCount,
+          teacherDetails?.attendance?.absentCount,
+        ],
+      });
+    } else {
+      setAttendenceOptions({
+        ...attendenceOptions,
+        series: [0, 0, 100],
+        options: {
+          ...attendenceOptions,
+          labels: ["Present", "Absent", "Not started"],
+        },
+      });
+    }
+  }, [teacherDetails]);
 
   if (error) {
     console.log(error);
@@ -417,6 +463,40 @@ const TeacherDetails = () => {
                       })}
                     </>
                     {/* )} */}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="col-lg-11 col-sm-11 col-11 col-md-11 m-auto mt-4">
+              <div className="left-panel my-4">
+                <div
+                  className="second-heading d-inline-flex justify-content-between align-items-center"
+                  onClick={() => setShowAttendenceChart(!showAttendenceChart)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="d-inline-flex justify-content-start align-items-center">
+                    <i className="text-white bi bi-person-square"></i>
+                    <img src={Person} alt="" />
+                    <p className="px-3 m-0 text-white">
+                      <strong>Attendence</strong>
+                    </p>
+                  </div>
+                  {showAttendenceChart ? (
+                    <KeyboardArrowDownIcon sx={{ color: "#FFFFFF" }} />
+                  ) : (
+                    <KeyboardArrowRightIcon sx={{ color: "#FFFFFF" }} />
+                  )}
+                </div>
+                {showAttendenceChart && (
+                  <div className="d-flex justify-content-center align-items">
+                    <div id="chart">
+                      <ReactApexChart
+                        options={attendenceOptions.options}
+                        series={attendenceOptions.series}
+                        type="pie"
+                        width={380}
+                      />
+                    </div>
                   </div>
                 )}
               </div>

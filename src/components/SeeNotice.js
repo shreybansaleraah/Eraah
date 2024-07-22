@@ -50,7 +50,7 @@ const SeeNotice = ({ ngoId }) => {
     return {
       title: notice.title,
       description: (notice.description || "").substring(0, 10),
-      school: notice.school.schoolName,
+      school: notice?.school?.schoolName || "",
       date: dateString,
       entryFee: "₹ " + notice.entryFee,
       id: notice._id,

@@ -273,3 +273,32 @@ export const urlConverter = (id, payload, callback, onError) => {
       onError(e);
     });
 };
+export const fetchTeachersForAttendance = (id, callback, onError) => {
+  // conso;
+
+  axios
+    .get(`${process.env.REACT_APP_BASE_URL}/attendance/getTeachers?id=${id}`)
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};
+export const addAttendence = (id, payload, callback, onError) => {
+  // conso;
+
+  axios
+    .post(
+      `${process.env.REACT_APP_BASE_URL}/TeacherAttendance?id=${id}`,
+      payload
+    )
+    .then((result) => {
+      callback(result.data);
+    })
+    .catch((e) => {
+      console.log(e);
+      onError(e);
+    });
+};

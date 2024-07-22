@@ -90,7 +90,11 @@ function Home() {
           <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
             <div className="">
               <span className="text-secondary">Pan</span>
-              <p>{ngoDetails?.pan}</p>
+              <p>{ngoDetails?.pan || ""}</p>
+            </div>
+            <div className="">
+              <span className="text-secondary">Eraah Charges</span>
+              <p>{ngoDetails?.eraahCharges || ""}</p>
             </div>
           </div>
           <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
@@ -111,26 +115,34 @@ function Home() {
           </p>
         </div>
         <div className="row p-4">
-          <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 d-flex flex-column justify-content-around">
+          <div className="col-xs-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 d-flex flex-column justify-content-around">
             <div className="my-2">
               <p className="text-secondary m-0 p-0">Address Proof</p>
               <a
-                href=""
+                href={ngoDetails?.addUrl || ""}
                 target="_blank"
-                style={{ color: "lightblue", textDecoration: "underLine" }}
+                style={{
+                  color: "lightblue",
+                  textDecoration: "underLine",
+                  wordBreak: "break-all",
+                }}
               >
-                {ngoDetails?.addUrl || ""}
+                <p>{(ngoDetails?.addUrl || "").substring(0, 50)}</p>
               </a>
             </div>
 
             <div className="my-2">
               <p className="text-secondary m-0 p-0">Bank Statement</p>
               <a
-                href=""
+                href={ngoDetails?.bankUrl || ""}
                 target="_blank"
-                style={{ color: "lightblue", textDecoration: "underLine" }}
+                style={{
+                  color: "lightblue",
+                  textDecoration: "underLine",
+                  wordBreak: "break-all",
+                }}
               >
-                {ngoDetails?.bankUrl || ""}
+                {ngoDetails?.bankUrl.substring(0, 50) || ""}
               </a>
             </div>
           </div>

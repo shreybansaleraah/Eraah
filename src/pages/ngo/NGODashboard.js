@@ -47,6 +47,7 @@ import errahIcon from "../../assets/errah.png";
 import drawerIcon from "../../assets/drawerIcon.svg";
 import AddFacility from "./facilityRelated/AddFacility";
 import UrlConverter from "./urlConverter";
+import Attendence from "./teacherRelated/attendence";
 
 const NGODashboard = () => {
   const [open, setOpen] = useState(false);
@@ -180,6 +181,8 @@ const NGODashboard = () => {
               path="/ngo/teachers/teacher/:id"
               element={<TeacherDetails />}
             />
+
+            <Route path="/ngo/attendence" element={<Attendence />} />
             <Route
               path="/ngo/teachers/chooseclass"
               element={<ChooseClass situation="Teacher" />}

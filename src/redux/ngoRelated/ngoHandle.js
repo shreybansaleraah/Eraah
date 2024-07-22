@@ -30,7 +30,12 @@ export const addNgo = (payload, callback, onError) => async (dispatch) => {
   try {
     const result = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/NGOReg`,
-      payload
+      payload,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
     if (result.data.message) {
       console.log("failed in : ", result.data.message);
@@ -95,7 +100,12 @@ export const updateNgo = (payload, callback, onError) => async (dispatch) => {
   try {
     const result = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/updateNgo`,
-      payload
+      payload,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
     if (result.data.message) {
       console.log("failed in : ", result.data.message);
